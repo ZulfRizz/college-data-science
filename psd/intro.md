@@ -1,11 +1,9 @@
-# Welcome to your Jupyter Book
+# About Me
 
-This is a small sample book to give you a feel for how book content is
-structured.
-It shows off a few of the major file types, as well as some sample content.
-It does not go in-depth into any particular topic - check out [the Jupyter Book documentation](https://jupyterbook.org) for more information.
+halo saya adalah mahasiswa dari prodi Teknik Informatika di Universitas Trunojoyo Madura. catatan ini ditunjukan untuk memenuhi tugas pada mata kuliah Proyek Sains Data yang diampu oleh Bapak Mula’ab, S.Si., M.Kom.
+berikut adalah beberapa informasi mengenai saya.
 
-Check out the content pages bundled with this sample book to see more.
+Nama : Muhammad Zulfri Choiril Anwar
+NIM  : 230411100176
+Motto : Makan untuk hidup, hidup untuk makan
 
-```{tableofcontents}
-```
