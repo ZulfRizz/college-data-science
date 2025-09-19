@@ -1,0 +1,843 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Data Preprocessing &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'data-praprocessing';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Data Understanding" href="data-understanding.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/pict.jpg" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/pict.jpg" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    About Me
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="business-understanding.html">Business Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-understanding.html">Data Understanding</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Data Preprocessing</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fdata-praprocessing.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/data-praprocessing.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Data Preprocessing</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pendahuluan">1. Pendahuluan</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pengertian-data-preprocessing">1.1 Pengertian Data Preprocessing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pentingnya-data-preprocessing">1.2 Pentingnya Data Preprocessing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahapan-data-preprocessing">2. Tahapan Data Preprocessing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-cleaning-pembersihan-data">2.1 Data Cleaning (Pembersihan Data)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#menangani-missing-values">Menangani Missing Values</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#menangani-outliers">Menangani Outliers</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-transformation">2.2 Data Transformation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#normalization-dan-standardization">Normalization dan Standardization</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#encoding-categorical-data">Encoding Categorical Data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering">Feature Engineering</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-reduction">2.3 Data Reduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dimensionality-reduction">Dimensionality Reduction</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-reduction">Dataset Reduction</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices-dan-tips-praktis">3. Best Practices dan Tips Praktis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-management">Workflow Management</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-pitfalls">Common Pitfalls</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-strategies">Validation Strategies</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">4. Kesimpulan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#studi-kasus">Studi Kasus</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pengenalan-metode-abod-angle-based-outlier-detection">Pengenalan Metode ABOD (Angle-Based Outlier Detection)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-deteksi-outlier-dengan-pycaret-dan-penggunaan-power-bi">Implementasi Deteksi Outlier dengan PyCaret dan Penggunaan Power BI</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="data-preprocessing">
+<h1>Data Preprocessing<a class="headerlink" href="#data-preprocessing" title="Link to this heading">#</a></h1>
+<section id="pendahuluan">
+<h2>1. Pendahuluan<a class="headerlink" href="#pendahuluan" title="Link to this heading">#</a></h2>
+<hr class="docutils" />
+<section id="pengertian-data-preprocessing">
+<h3>1.1 Pengertian Data Preprocessing<a class="headerlink" href="#pengertian-data-preprocessing" title="Link to this heading">#</a></h3>
+<p><strong>Data preprocessing</strong> merupakan proses fundamental dalam data science yang bertujuan untuk mengubah data mentah (raw data) menjadi format yang bersih, terstruktur, dan siap untuk analisis lebih lanjut.</p>
+<p>Dalam konteks machine learning, data preprocessing adalah tahap kritis yang menentukan keberhasilan model. Data yang tidak diproses dengan baik dapat menyebabkan model belajar pola yang salah, menghasilkan prediksi yang tidak akurat, dan pada akhirnya gagal memberikan insight yang bermakna.</p>
+</section>
+<section id="pentingnya-data-preprocessing">
+<h3>1.2 Pentingnya Data Preprocessing<a class="headerlink" href="#pentingnya-data-preprocessing" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Meningkatkan Kualitas Model</strong>: Data yang bersih dan terstruktur memungkinkan model machine learning belajar pola yang lebih akurat</p></li>
+<li><p><strong>Menghindari Bias dan Error</strong>: Preprocessing membantu mengidentifikasi dan menangani anomaly, outlier, dan bias dalam data</p></li>
+<li><p><strong>Optimasi Performa</strong>: Data yang telah direduksi dan dinormalisasi dapat mempercepat proses training</p></li>
+<li><p><strong>Memastikan Konsistensi</strong>: Standardisasi format data memastikan konsistensi across different data sources</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="tahapan-data-preprocessing">
+<h2>2. Tahapan Data Preprocessing<a class="headerlink" href="#tahapan-data-preprocessing" title="Link to this heading">#</a></h2>
+<section id="data-cleaning-pembersihan-data">
+<h3>2.1 Data Cleaning (Pembersihan Data)<a class="headerlink" href="#data-cleaning-pembersihan-data" title="Link to this heading">#</a></h3>
+<section id="menangani-missing-values">
+<h4>Menangani Missing Values<a class="headerlink" href="#menangani-missing-values" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Penghapusan Data</strong>: Cocok untuk dataset besar dimana missing values hanya sebagian kecil</p></li>
+<li><p><strong>Imputasi Statistik</strong>: Mengisi nilai yang hilang dengan mean/median (numerik) atau mode (kategorikal)</p></li>
+<li><p><strong>Advanced Imputation</strong>: Menggunakan machine learning algorithms untuk memprediksi missing values</p></li>
+</ul>
+</section>
+<section id="menangani-outliers">
+<h4>Menangani Outliers<a class="headerlink" href="#menangani-outliers" title="Link to this heading">#</a></h4>
+<p><strong>Deteksi Outliers</strong>:</p>
+<ul class="simple">
+<li><p>Metode Statistik: Z-score, IQR (Interquartile Range)</p></li>
+<li><p>Visualisasi: Box plots, scatter plots</p></li>
+<li><p>Machine Learning: Isolation Forest, DBSCAN clustering, ABOD, LOF</p></li>
+</ul>
+<p><strong>Penanganan Outliers</strong>:</p>
+<ul class="simple">
+<li><p>Removal: Untuk outliers yang jelas merupakan kesalahan</p></li>
+<li><p>Capping: Membatasi nilai outliers pada batas tertentu</p></li>
+<li><p>Transformation: Menggunakan log transformation</p></li>
+</ul>
+</section>
+</section>
+<section id="data-transformation">
+<h3>2.2 Data Transformation<a class="headerlink" href="#data-transformation" title="Link to this heading">#</a></h3>
+<section id="normalization-dan-standardization">
+<h4>Normalization dan Standardization<a class="headerlink" href="#normalization-dan-standardization" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Min-Max Scaling</strong>: Mengubah skala data ke range [0, 1] atau [-1, 1]</p></li>
+<li><p><strong>Z-score Standardization</strong>: Transformasi data sehingga memiliki mean = 0 dan standard deviation = 1</p></li>
+</ul>
+</section>
+<section id="encoding-categorical-data">
+<h4>Encoding Categorical Data<a class="headerlink" href="#encoding-categorical-data" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>One-Hot Encoding</strong>: Mengubah categorical variables menjadi binary vectors</p></li>
+<li><p><strong>Label Encoding</strong>: Mengassign numerical values kepada categories</p></li>
+<li><p><strong>Target Encoding</strong>: Menggunakan mean of target variable untuk setiap category</p></li>
+</ul>
+</section>
+<section id="feature-engineering">
+<h4>Feature Engineering<a class="headerlink" href="#feature-engineering" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Polynomial Features</strong>: Membuat interaction terms dan polynomial terms</p></li>
+<li><p><strong>Binning</strong>: Mengubah continuous variables menjadi categorical bins</p></li>
+<li><p><strong>Domain-Specific Features</strong>: Membuat features berdasarkan domain knowledge</p></li>
+</ul>
+</section>
+</section>
+<section id="data-reduction">
+<h3>2.3 Data Reduction<a class="headerlink" href="#data-reduction" title="Link to this heading">#</a></h3>
+<section id="dimensionality-reduction">
+<h4>Dimensionality Reduction<a class="headerlink" href="#dimensionality-reduction" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Principal Component Analysis (PCA)</strong>: Linear transformation yang mengurangi dimensionality</p></li>
+<li><p><strong>t-SNE dan UMAP</strong>: Nonlinear techniques untuk visualisasi</p></li>
+<li><p><strong>Feature Selection</strong>: Filter Methods, Wrapper Methods, Embedded Methods</p></li>
+</ul>
+</section>
+<section id="dataset-reduction">
+<h4>Dataset Reduction<a class="headerlink" href="#dataset-reduction" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Sampling Techniques</strong>: Random sampling, Stratified sampling</p></li>
+<li><p><strong>Aggregation</strong>: Mengaggregate data ke level yang lebih tinggi</p></li>
+</ul>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="best-practices-dan-tips-praktis">
+<h2>3. Best Practices dan Tips Praktis<a class="headerlink" href="#best-practices-dan-tips-praktis" title="Link to this heading">#</a></h2>
+<section id="workflow-management">
+<h3>Workflow Management<a class="headerlink" href="#workflow-management" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Reproducibility</strong>: Selalu dokumentasikan semua preprocessing steps</p></li>
+<li><p><strong>Pipeline Development</strong>: Bangun automated pipelines untuk konsistensi</p></li>
+<li><p><strong>Version Control</strong>: Gunakan version control untuk preprocessing scripts</p></li>
+</ul>
+</section>
+<section id="common-pitfalls">
+<h3>Common Pitfalls<a class="headerlink" href="#common-pitfalls" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Data Leakage</strong>: Hindari menggunakan information dari test set dalam preprocessing</p></li>
+<li><p><strong>Over-engineering</strong>: Jangan membuat features yang terlalu complex</p></li>
+<li><p><strong>Ignoring Domain Context</strong>: Selalu pertimbangkan domain knowledge</p></li>
+</ul>
+</section>
+<section id="validation-strategies">
+<h3>Validation Strategies<a class="headerlink" href="#validation-strategies" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Cross-validation</strong>: Implementasikan preprocessing dalam setiap cross-validation fold</p></li>
+<li><p><strong>Monitoring</strong>: Terus monitor impact of preprocessing pada model performance</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="kesimpulan">
+<h2>4. Kesimpulan<a class="headerlink" href="#kesimpulan" title="Link to this heading">#</a></h2>
+<p><strong>Data preprocessing</strong> bukanlah tugas tunggal, melainkan serangkaian langkah penting yang saling terkait untuk memastikan data siap digunakan. Dari pembersihan data mentah hingga transformasi dan reduksi, setiap tahap memainkan peran vital dalam membangun fondasi yang kuat untuk analisis data dan machine learning. Mengabaikan proses ini sering kali menjadi penyebab utama kegagalan proyek data science. Oleh karena itu, pemahaman yang mendalam tentang setiap tahapan dan teknik di dalamnya adalah kunci untuk menghasilkan model yang akurat, efisien, dan andal.</p>
+</section>
+<section id="studi-kasus">
+<h2>Studi Kasus<a class="headerlink" href="#studi-kasus" title="Link to this heading">#</a></h2>
+<p>Setelah memahami tahapan umum data preprocessing, pada kali ini akan fokus pada salah satu tugas spesifik dalam Data Cleaning, yaitu deteksi pencilan (outlier). Kita akan membahas metode Angle-Based Outlier Detection (ABOD) dan cara implementasinya secara efisien menggunakan library PyCaret.</p>
+<section id="pengenalan-metode-abod-angle-based-outlier-detection">
+<h3>Pengenalan Metode ABOD (Angle-Based Outlier Detection)<a class="headerlink" href="#pengenalan-metode-abod-angle-based-outlier-detection" title="Link to this heading">#</a></h3>
+<p>ABOD adalah salah satu algoritma deteksi outlier yang populer, terutama untuk data berdimensi tinggi (high-dimensional data). Berbeda dengan metode yang hanya mengandalkan jarak (seperti K-Nearest Neighbors), ABOD bekerja berdasarkan prinsip yang unik:</p>
+<ul class="simple">
+<li><p><strong>Intuisi Utama</strong>: Sebuah titik data yang merupakan inlier (bukan outlier) akan berada di dalam sebuah cluster. Jika kita melihat dari titik tersebut, titik-titik tetangganya akan tersebar di berbagai sudut di sekelilingnya. Sebaliknya, sebuah outlier akan berada jauh dari kerumunan data utama. Jika kita melihat dari titik outlier ini, sebagian besar titik data lainnya akan berada dalam arah yang sempit, sehingga menghasilkan variasi sudut yang kecil.</p></li>
+</ul>
+<p>Secara sederhana, ABOD mengukur varians sudut antara sebuah titik dengan pasangan titik-titik lainnya. Semakin kecil varians sudutnya, semakin besar kemungkinan titik tersebut adalah outlier.</p>
+<p><strong>Keunggulan ABOD:</strong></p>
+<ul class="simple">
+<li><p><strong>Efektif di Dimensi Tinggi:</strong> Kurang terpengaruh oleh “kutukan dimensi” (curse of dimensionality) yang sering menjadi masalah bagi metode berbasis jarak murni.</p></li>
+<li><p><strong>Tidak Membutuhkan Asumsi Distribusi:</strong> Tidak mengasumsikan data mengikuti distribusi statistik tertentu (misalnya, distribusi normal).</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="implementasi-deteksi-outlier-dengan-pycaret-dan-penggunaan-power-bi">
+<h3>Implementasi Deteksi Outlier dengan PyCaret dan Penggunaan Power BI<a class="headerlink" href="#implementasi-deteksi-outlier-dengan-pycaret-dan-penggunaan-power-bi" title="Link to this heading">#</a></h3>
+<p>Pada kali ini kita akan implementasi proses deteksi outlier dengan Power BI dan menggunakan library PyCaret pada python.</p>
+<p>PyCaret adalah sebuah library low-code machine learning di Python yang memungkinkan kita untuk melakukan berbagai tugas data science, termasuk deteksi anomali (outlier), dengan sangat cepat dan efisien. PyCaret mengotomatiskan banyak langkah sehingga kita bisa fokus pada analisis.</p>
+<p>Berikut adalah langkah-langkah umum untuk mendeteksi outlier menggunakan ABOD di PyCaret:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">pip</span> install -q pycaret pandas sqlalchemy
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_engine</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>^C
+<span class=" -Color -Color-Red">ERROR: Operation cancelled by user</span>
+
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">host</span> <span class="o">=</span><span class="s2">&quot;localhost&quot;</span>
+<span class="n">password</span> <span class="o">=</span> <span class="s2">&quot;root&quot;</span>
+<span class="n">port</span> <span class="o">=</span> <span class="s2">&quot;5432&quot;</span>
+<span class="n">usn</span> <span class="o">=</span> <span class="s2">&quot;postgres&quot;</span>
+
+<span class="c1"># --- Koneksi ke DB1 (sepal) ---</span>
+<span class="n">conn1</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;postgresql+psycopg2://</span><span class="si">{</span><span class="n">usn</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">password</span><span class="si">}</span><span class="s2">@</span><span class="si">{</span><span class="n">host</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">port</span><span class="si">}</span><span class="s2">/iris-1&quot;</span><span class="p">)</span>
+
+<span class="c1"># --- Koneksi ke DB2 (petal) ---</span>
+<span class="n">conn2</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;postgresql+psycopg2://</span><span class="si">{</span><span class="n">usn</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">password</span><span class="si">}</span><span class="s2">@</span><span class="si">{</span><span class="n">host</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">port</span><span class="si">}</span><span class="s2">/iris-2&quot;</span><span class="p">)</span>
+
+<span class="c1"># --- Ambil data dari masing-masing database ---</span>
+<span class="n">iris_sepal</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span>
+    <span class="s2">&quot;SELECT * FROM iris_sepal&quot;</span><span class="p">,</span>
+    <span class="n">conn1</span>
+<span class="p">)</span>
+
+<span class="n">iris_petal</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span>
+    <span class="s2">&quot;SELECT * FROM iris_petal&quot;</span><span class="p">,</span>
+    <span class="n">conn2</span>
+<span class="p">)</span>
+
+<span class="c1"># --- Gabungkan ---</span>
+<span class="n">iris_full</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">iris_sepal</span><span class="p">,</span> <span class="n">iris_petal</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># --- Simpan ke CSV ---</span>
+<span class="n">iris_full</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;csv/iris_full.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># --- Cek hasil ---</span>
+<span class="n">iris_full</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sepal_length</th>
+      <th>sepal_width</th>
+      <th>petal_length</th>
+      <th>petal_width</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.2</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="data-understanding.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Data Understanding</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pendahuluan">1. Pendahuluan</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pengertian-data-preprocessing">1.1 Pengertian Data Preprocessing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pentingnya-data-preprocessing">1.2 Pentingnya Data Preprocessing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahapan-data-preprocessing">2. Tahapan Data Preprocessing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-cleaning-pembersihan-data">2.1 Data Cleaning (Pembersihan Data)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#menangani-missing-values">Menangani Missing Values</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#menangani-outliers">Menangani Outliers</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-transformation">2.2 Data Transformation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#normalization-dan-standardization">Normalization dan Standardization</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#encoding-categorical-data">Encoding Categorical Data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering">Feature Engineering</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-reduction">2.3 Data Reduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dimensionality-reduction">Dimensionality Reduction</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-reduction">Dataset Reduction</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices-dan-tips-praktis">3. Best Practices dan Tips Praktis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-management">Workflow Management</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-pitfalls">Common Pitfalls</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-strategies">Validation Strategies</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">4. Kesimpulan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#studi-kasus">Studi Kasus</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pengenalan-metode-abod-angle-based-outlier-detection">Pengenalan Metode ABOD (Angle-Based Outlier Detection)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-deteksi-outlier-dengan-pycaret-dan-penggunaan-power-bi">Implementasi Deteksi Outlier dengan PyCaret dan Penggunaan Power BI</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
