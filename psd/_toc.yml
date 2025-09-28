@@ -8,3 +8,4 @@ chapters:
   title: "Business Understanding"
 - file: data-understanding
 - file: data-praprocessing
+- file: imbalanced
