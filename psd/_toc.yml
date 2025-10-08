@@ -9,3 +9,4 @@ chapters:
 - file: data-understanding
 - file: data-praprocessing
 - file: imbalanced
+- file: ensemble_learning
