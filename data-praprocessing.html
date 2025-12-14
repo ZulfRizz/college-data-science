@@ -1,0 +1,1139 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Data Preprocessing &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'data-praprocessing';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Imbalanced Data" href="imbalanced.html" />
+    <link rel="prev" title="Data Understanding" href="data-understanding.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/pict.jpg" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/pict.jpg" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    About Me
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="business-understanding.html">Business Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-understanding.html">Data Understanding</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Data Preprocessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="imbalanced.html">Imbalanced Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ensemble_learning.html">Ensemble Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="voice_recognition.html">Voice Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BinaryHeartBeatClassification.html">Klasifikasi Sinyal Detak Jantung (Binary Classification)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fdata-praprocessing.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/data-praprocessing.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Data Preprocessing</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pendahuluan">1. Pendahuluan</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pengertian-data-preprocessing">1.1 Pengertian Data Preprocessing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pentingnya-data-preprocessing">1.2 Pentingnya Data Preprocessing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahapan-data-preprocessing">2. Tahapan Data Preprocessing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-cleaning-pembersihan-data">2.1 Data Cleaning (Pembersihan Data)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#menangani-missing-values">Menangani Missing Values</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#menangani-outliers">Menangani Outliers</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-transformation">2.2 Data Transformation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#normalization-dan-standardization">Normalization dan Standardization</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#encoding-categorical-data">Encoding Categorical Data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering">Feature Engineering</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-reduction">2.3 Data Reduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dimensionality-reduction">Dimensionality Reduction</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-reduction">Dataset Reduction</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices-dan-tips-praktis">3. Best Practices dan Tips Praktis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-management">Workflow Management</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-pitfalls">Common Pitfalls</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-strategies">Validation Strategies</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">4. Kesimpulan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#studi-kasus">Studi Kasus</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pengenalan-metode-abod-angle-based-outlier-detection">Pengenalan Metode ABOD (Angle-Based Outlier Detection)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-deteksi-outlier-dengan-pycaret-dan-penggunaan-power-bi">Implementasi Deteksi Outlier dengan PyCaret dan Penggunaan Power BI</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-visualisasi-petal-length-vs-petal-width-pada-power-bi">Hasil Visualisasi Petal Length vs Petal Width pada Power BI</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="data-preprocessing">
+<h1>Data Preprocessing<a class="headerlink" href="#data-preprocessing" title="Link to this heading">#</a></h1>
+<section id="pendahuluan">
+<h2>1. Pendahuluan<a class="headerlink" href="#pendahuluan" title="Link to this heading">#</a></h2>
+<hr class="docutils" />
+<section id="pengertian-data-preprocessing">
+<h3>1.1 Pengertian Data Preprocessing<a class="headerlink" href="#pengertian-data-preprocessing" title="Link to this heading">#</a></h3>
+<p><strong>Data preprocessing</strong> merupakan proses fundamental dalam data science yang bertujuan untuk mengubah data mentah (raw data) menjadi format yang bersih, terstruktur, dan siap untuk analisis lebih lanjut.</p>
+<p>Dalam konteks machine learning, data preprocessing adalah tahap kritis yang menentukan keberhasilan model. Data yang tidak diproses dengan baik dapat menyebabkan model belajar pola yang salah, menghasilkan prediksi yang tidak akurat, dan pada akhirnya gagal memberikan insight yang bermakna.</p>
+</section>
+<section id="pentingnya-data-preprocessing">
+<h3>1.2 Pentingnya Data Preprocessing<a class="headerlink" href="#pentingnya-data-preprocessing" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Meningkatkan Kualitas Model</strong>: Data yang bersih dan terstruktur memungkinkan model machine learning belajar pola yang lebih akurat</p></li>
+<li><p><strong>Menghindari Bias dan Error</strong>: Preprocessing membantu mengidentifikasi dan menangani anomaly, outlier, dan bias dalam data</p></li>
+<li><p><strong>Optimasi Performa</strong>: Data yang telah direduksi dan dinormalisasi dapat mempercepat proses training</p></li>
+<li><p><strong>Memastikan Konsistensi</strong>: Standardisasi format data memastikan konsistensi across different data sources</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="tahapan-data-preprocessing">
+<h2>2. Tahapan Data Preprocessing<a class="headerlink" href="#tahapan-data-preprocessing" title="Link to this heading">#</a></h2>
+<section id="data-cleaning-pembersihan-data">
+<h3>2.1 Data Cleaning (Pembersihan Data)<a class="headerlink" href="#data-cleaning-pembersihan-data" title="Link to this heading">#</a></h3>
+<section id="menangani-missing-values">
+<h4>Menangani Missing Values<a class="headerlink" href="#menangani-missing-values" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Penghapusan Data</strong>: Cocok untuk dataset besar dimana missing values hanya sebagian kecil</p></li>
+<li><p><strong>Imputasi Statistik</strong>: Mengisi nilai yang hilang dengan mean/median (numerik) atau mode (kategorikal)</p></li>
+<li><p><strong>Advanced Imputation</strong>: Menggunakan machine learning algorithms untuk memprediksi missing values</p></li>
+</ul>
+</section>
+<section id="menangani-outliers">
+<h4>Menangani Outliers<a class="headerlink" href="#menangani-outliers" title="Link to this heading">#</a></h4>
+<p><strong>Deteksi Outliers</strong>:</p>
+<ul class="simple">
+<li><p>Metode Statistik: Z-score, IQR (Interquartile Range)</p></li>
+<li><p>Visualisasi: Box plots, scatter plots</p></li>
+<li><p>Machine Learning: Isolation Forest, DBSCAN clustering, ABOD, LOF</p></li>
+</ul>
+<p><strong>Penanganan Outliers</strong>:</p>
+<ul class="simple">
+<li><p>Removal: Untuk outliers yang jelas merupakan kesalahan</p></li>
+<li><p>Capping: Membatasi nilai outliers pada batas tertentu</p></li>
+<li><p>Transformation: Menggunakan log transformation</p></li>
+</ul>
+</section>
+</section>
+<section id="data-transformation">
+<h3>2.2 Data Transformation<a class="headerlink" href="#data-transformation" title="Link to this heading">#</a></h3>
+<section id="normalization-dan-standardization">
+<h4>Normalization dan Standardization<a class="headerlink" href="#normalization-dan-standardization" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Min-Max Scaling</strong>: Mengubah skala data ke range [0, 1] atau [-1, 1]</p></li>
+<li><p><strong>Z-score Standardization</strong>: Transformasi data sehingga memiliki mean = 0 dan standard deviation = 1</p></li>
+</ul>
+</section>
+<section id="encoding-categorical-data">
+<h4>Encoding Categorical Data<a class="headerlink" href="#encoding-categorical-data" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>One-Hot Encoding</strong>: Mengubah categorical variables menjadi binary vectors</p></li>
+<li><p><strong>Label Encoding</strong>: Mengassign numerical values kepada categories</p></li>
+<li><p><strong>Target Encoding</strong>: Menggunakan mean of target variable untuk setiap category</p></li>
+</ul>
+</section>
+<section id="feature-engineering">
+<h4>Feature Engineering<a class="headerlink" href="#feature-engineering" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Polynomial Features</strong>: Membuat interaction terms dan polynomial terms</p></li>
+<li><p><strong>Binning</strong>: Mengubah continuous variables menjadi categorical bins</p></li>
+<li><p><strong>Domain-Specific Features</strong>: Membuat features berdasarkan domain knowledge</p></li>
+</ul>
+</section>
+</section>
+<section id="data-reduction">
+<h3>2.3 Data Reduction<a class="headerlink" href="#data-reduction" title="Link to this heading">#</a></h3>
+<section id="dimensionality-reduction">
+<h4>Dimensionality Reduction<a class="headerlink" href="#dimensionality-reduction" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Principal Component Analysis (PCA)</strong>: Linear transformation yang mengurangi dimensionality</p></li>
+<li><p><strong>t-SNE dan UMAP</strong>: Nonlinear techniques untuk visualisasi</p></li>
+<li><p><strong>Feature Selection</strong>: Filter Methods, Wrapper Methods, Embedded Methods</p></li>
+</ul>
+</section>
+<section id="dataset-reduction">
+<h4>Dataset Reduction<a class="headerlink" href="#dataset-reduction" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Sampling Techniques</strong>: Random sampling, Stratified sampling</p></li>
+<li><p><strong>Aggregation</strong>: Mengaggregate data ke level yang lebih tinggi</p></li>
+</ul>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="best-practices-dan-tips-praktis">
+<h2>3. Best Practices dan Tips Praktis<a class="headerlink" href="#best-practices-dan-tips-praktis" title="Link to this heading">#</a></h2>
+<section id="workflow-management">
+<h3>Workflow Management<a class="headerlink" href="#workflow-management" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Reproducibility</strong>: Selalu dokumentasikan semua preprocessing steps</p></li>
+<li><p><strong>Pipeline Development</strong>: Bangun automated pipelines untuk konsistensi</p></li>
+<li><p><strong>Version Control</strong>: Gunakan version control untuk preprocessing scripts</p></li>
+</ul>
+</section>
+<section id="common-pitfalls">
+<h3>Common Pitfalls<a class="headerlink" href="#common-pitfalls" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Data Leakage</strong>: Hindari menggunakan information dari test set dalam preprocessing</p></li>
+<li><p><strong>Over-engineering</strong>: Jangan membuat features yang terlalu complex</p></li>
+<li><p><strong>Ignoring Domain Context</strong>: Selalu pertimbangkan domain knowledge</p></li>
+</ul>
+</section>
+<section id="validation-strategies">
+<h3>Validation Strategies<a class="headerlink" href="#validation-strategies" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Cross-validation</strong>: Implementasikan preprocessing dalam setiap cross-validation fold</p></li>
+<li><p><strong>Monitoring</strong>: Terus monitor impact of preprocessing pada model performance</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="kesimpulan">
+<h2>4. Kesimpulan<a class="headerlink" href="#kesimpulan" title="Link to this heading">#</a></h2>
+<p><strong>Data preprocessing</strong> bukanlah tugas tunggal, melainkan serangkaian langkah penting yang saling terkait untuk memastikan data siap digunakan. Dari pembersihan data mentah hingga transformasi dan reduksi, setiap tahap memainkan peran vital dalam membangun fondasi yang kuat untuk analisis data dan machine learning. Mengabaikan proses ini sering kali menjadi penyebab utama kegagalan proyek data science. Oleh karena itu, pemahaman yang mendalam tentang setiap tahapan dan teknik di dalamnya adalah kunci untuk menghasilkan model yang akurat, efisien, dan andal.</p>
+</section>
+<section id="studi-kasus">
+<h2>Studi Kasus<a class="headerlink" href="#studi-kasus" title="Link to this heading">#</a></h2>
+<p>Setelah memahami tahapan umum data preprocessing, pada kali ini akan fokus pada salah satu tugas spesifik dalam Data Cleaning, yaitu deteksi pencilan (outlier). Kita akan membahas metode Angle-Based Outlier Detection (ABOD) dan cara implementasinya secara efisien menggunakan library PyCaret.</p>
+<section id="pengenalan-metode-abod-angle-based-outlier-detection">
+<h3>Pengenalan Metode ABOD (Angle-Based Outlier Detection)<a class="headerlink" href="#pengenalan-metode-abod-angle-based-outlier-detection" title="Link to this heading">#</a></h3>
+<p>ABOD adalah salah satu algoritma deteksi outlier yang populer, terutama untuk data berdimensi tinggi (high-dimensional data). Berbeda dengan metode yang hanya mengandalkan jarak (seperti K-Nearest Neighbors), ABOD bekerja berdasarkan prinsip yang unik:</p>
+<ul class="simple">
+<li><p><strong>Intuisi Utama</strong>: Sebuah titik data yang merupakan inlier (bukan outlier) akan berada di dalam sebuah cluster. Jika kita melihat dari titik tersebut, titik-titik tetangganya akan tersebar di berbagai sudut di sekelilingnya. Sebaliknya, sebuah outlier akan berada jauh dari kerumunan data utama. Jika kita melihat dari titik outlier ini, sebagian besar titik data lainnya akan berada dalam arah yang sempit, sehingga menghasilkan variasi sudut yang kecil.</p></li>
+</ul>
+<p>Secara sederhana, ABOD mengukur varians sudut antara sebuah titik dengan pasangan titik-titik lainnya. Semakin kecil varians sudutnya, semakin besar kemungkinan titik tersebut adalah outlier.</p>
+<p><strong>Keunggulan ABOD:</strong></p>
+<ul class="simple">
+<li><p><strong>Efektif di Dimensi Tinggi:</strong> Kurang terpengaruh oleh “kutukan dimensi” (curse of dimensionality) yang sering menjadi masalah bagi metode berbasis jarak murni.</p></li>
+<li><p><strong>Tidak Membutuhkan Asumsi Distribusi:</strong> Tidak mengasumsikan data mengikuti distribusi statistik tertentu (misalnya, distribusi normal).</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="implementasi-deteksi-outlier-dengan-pycaret-dan-penggunaan-power-bi">
+<h3>Implementasi Deteksi Outlier dengan PyCaret dan Penggunaan Power BI<a class="headerlink" href="#implementasi-deteksi-outlier-dengan-pycaret-dan-penggunaan-power-bi" title="Link to this heading">#</a></h3>
+<p>Pada kali ini kita akan implementasi proses deteksi outlier dengan Power BI dan menggunakan library PyCaret pada python.</p>
+<p>PyCaret adalah sebuah library low-code machine learning di Python yang memungkinkan kita untuk melakukan berbagai tugas data science, termasuk deteksi anomali (outlier), dengan sangat cepat dan efisien. PyCaret mengotomatiskan banyak langkah sehingga kita bisa fokus pada analisis.</p>
+<p>Berikut adalah langkah-langkah umum untuk mendeteksi outlier menggunakan ABOD di PyCaret:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">pip</span> install -q pyod==1.0.9 matplotlib seaborn scikit-learn==1.4.2 pandas numpy sqlalchemy psycopg2-binary
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  error: subprocess-exited-with-error
+  
+  pip subprocess to install build dependencies did not run successfully.
+  exit code: 1
+  
+  [9 lines of output]
+  Collecting setuptools
+    Using cached setuptools-80.9.0-py3-none-any.whl.metadata (6.6 kB)
+  Collecting wheel
+    Using cached wheel-0.45.1-py3-none-any.whl.metadata (2.3 kB)
+  Collecting Cython&gt;=3.0.8
+    Using cached cython-3.2.3-cp313-cp313-win_amd64.whl.metadata (4.6 kB)
+  ERROR: Ignored the following versions that require a different python version: 1.21.2 Requires-Python &gt;=3.7,&lt;3.11; 1.21.3 Requires-Python &gt;=3.7,&lt;3.11; 1.21.4 Requires-Python &gt;=3.7,&lt;3.11; 1.21.5 Requires-Python &gt;=3.7,&lt;3.11; 1.21.6 Requires-Python &gt;=3.7,&lt;3.11; 1.26.0 Requires-Python &gt;=3.9,&lt;3.13; 1.26.1 Requires-Python &gt;=3.9,&lt;3.13
+  ERROR: Could not find a version that satisfies the requirement numpy==2.0.0rc1 (from versions: 1.3.0, 1.4.1, 1.5.0, 1.5.1, 1.6.0, 1.6.1, 1.6.2, 1.7.0, 1.7.1, 1.7.2, 1.8.0, 1.8.1, 1.8.2, 1.9.0, 1.9.1, 1.9.2, 1.9.3, 1.10.0.post2, 1.10.1, 1.10.2, 1.10.4, 1.11.0, 1.11.1, 1.11.2, 1.11.3, 1.12.0, 1.12.1, 1.13.0, 1.13.1, 1.13.3, 1.14.0, 1.14.1, 1.14.2, 1.14.3, 1.14.4, 1.14.5, 1.14.6, 1.15.0, 1.15.1, 1.15.2, 1.15.3, 1.15.4, 1.16.0, 1.16.1, 1.16.2, 1.16.3, 1.16.4, 1.16.5, 1.16.6, 1.17.0, 1.17.1, 1.17.2, 1.17.3, 1.17.4, 1.17.5, 1.18.0, 1.18.1, 1.18.2, 1.18.3, 1.18.4, 1.18.5, 1.19.0, 1.19.1, 1.19.2, 1.19.3, 1.19.4, 1.19.5, 1.20.0, 1.20.1, 1.20.2, 1.20.3, 1.21.0, 1.21.1, 1.22.0, 1.22.1, 1.22.2, 1.22.3, 1.22.4, 1.23.0, 1.23.1, 1.23.2, 1.23.3, 1.23.4, 1.23.5, 1.24.0, 1.24.1, 1.24.2, 1.24.3, 1.24.4, 1.25.0, 1.25.1, 1.25.2, 1.26.2, 1.26.3, 1.26.4, 2.0.0, 2.0.1, 2.0.2, 2.1.0, 2.1.1, 2.1.2, 2.1.3, 2.2.0, 2.2.1, 2.2.2, 2.2.3, 2.2.4, 2.2.5, 2.2.6, 2.3.0, 2.3.1, 2.3.2, 2.3.3, 2.3.4, 2.3.5, 2.4.0rc1)
+  ERROR: No matching distribution found for numpy==2.0.0rc1
+  [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+
+[notice] A new release of pip is available: 25.2 -&gt; 25.3
+[notice] To update, run: python.exe -m pip install --upgrade pip
+error: subprocess-exited-with-error
+
+pip subprocess to install build dependencies did not run successfully.
+exit code: 1
+
+See above for output.
+
+note: This error originates from a subprocess, and is likely not a problem with pip.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyod.models.abod</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABOD</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_engine</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.decomposition</span><span class="w"> </span><span class="kn">import</span> <span class="n">PCA</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">6</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="ne">----&gt; </span><span class="mi">6</span> <span class="kn">from</span><span class="w"> </span><span class="nn">pyod.models.abod</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABOD</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_engine</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;pyod&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">host</span> <span class="o">=</span><span class="s2">&quot;localhost&quot;</span>
+<span class="n">password</span> <span class="o">=</span> <span class="s2">&quot;root&quot;</span>
+<span class="n">port</span> <span class="o">=</span> <span class="s2">&quot;5432&quot;</span>
+<span class="n">usn</span> <span class="o">=</span> <span class="s2">&quot;postgres&quot;</span>
+
+<span class="c1"># # --- Koneksi ke DB1 (sepal) ---</span>
+<span class="c1"># conn1 = create_engine(f&quot;postgresql+psycopg2://{usn}:{password}@{host}:{port}/iris-1&quot;)</span>
+
+<span class="c1"># # --- Koneksi ke DB2 (petal) ---</span>
+<span class="c1"># conn2 = create_engine(f&quot;postgresql+psycopg2://{usn}:{password}@{host}:{port}/iris-2&quot;)</span>
+
+<span class="c1"># # --- Ambil data dari masing-masing database ---</span>
+<span class="c1"># iris_sepal = pd.read_sql(</span>
+<span class="c1">#     &quot;SELECT * FROM iris_sepal&quot;,</span>
+<span class="c1">#     conn1</span>
+<span class="c1"># )</span>
+
+<span class="c1"># iris_petal = pd.read_sql(</span>
+<span class="c1">#     &quot;SELECT * FROM iris_petal&quot;,</span>
+<span class="c1">#     conn2</span>
+<span class="c1"># )</span>
+
+<span class="c1"># # --- Gabungkan ---</span>
+<span class="c1"># iris_full = pd.concat([iris_sepal, iris_petal], axis=1)</span>
+
+<span class="c1">## --- Simpan ke CSV ---</span>
+<span class="c1"># iris_full.to_csv(&quot;csv/iris_full.csv&quot;, index=False)</span>
+
+<span class="n">iris_full</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;csv/iris_full.csv&#39;</span><span class="p">)</span>
+
+<span class="c1"># --- Cek hasil ---</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dataset Info:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Shape: </span><span class="si">{</span><span class="n">iris_full</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Columns: </span><span class="si">{</span><span class="n">iris_full</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">First 5 rows:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">iris_full</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Dataset Description:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">iris_full</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Dataset Info:
+Shape: (150, 4)
+Columns: [&#39;sepal_length&#39;, &#39;sepal_width&#39;, &#39;petal_length&#39;, &#39;petal_width&#39;]
+
+First 5 rows:
+   sepal_length  sepal_width  petal_length  petal_width
+0           5.1          3.5           1.4          0.2
+1           4.9          3.0           1.4          0.2
+2           4.7          3.2           1.3          0.2
+3           4.6          3.1           1.5          0.2
+4           5.0          3.6           1.4          0.2
+
+Dataset Description:
+       sepal_length  sepal_width  petal_length  petal_width
+count    150.000000   150.000000    150.000000   150.000000
+mean       5.843333     3.054000      3.758667     1.198667
+std        0.828066     0.433594      1.764420     0.763161
+min        4.300000     2.000000      1.000000     0.100000
+25%        5.100000     2.800000      1.600000     0.300000
+50%        5.800000     3.000000      4.350000     1.300000
+75%        6.400000     3.300000      5.100000     1.800000
+max        7.900000     4.400000      6.900000     2.500000
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Missing values:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">iris_full</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+
+<span class="c1"># Pilih hanya kolom numerik untuk deteksi outlier</span>
+<span class="n">numeric_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">,</span><span class="s1">&#39;sepal_width&#39;</span><span class="p">,</span> <span class="s1">&#39;petal_length&#39;</span><span class="p">,</span> <span class="s1">&#39;petal_width&#39;</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">iris_full</span><span class="p">[</span><span class="n">numeric_columns</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># Standardisasi data</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">X_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">X_scaled_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">numeric_columns</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Data after scaling:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X_scaled_df</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Missing values:
+sepal_length    0
+sepal_width     0
+petal_length    0
+petal_width     0
+dtype: int64
+
+Data after scaling:
+       sepal_length   sepal_width  petal_length   petal_width
+count  1.500000e+02  1.500000e+02  1.500000e+02  1.500000e+02
+mean  -4.736952e-16 -6.631732e-16  3.315866e-16 -2.842171e-16
+std    1.003350e+00  1.003350e+00  1.003350e+00  1.003350e+00
+min   -1.870024e+00 -2.438987e+00 -1.568735e+00 -1.444450e+00
+25%   -9.006812e-01 -5.877635e-01 -1.227541e+00 -1.181504e+00
+50%   -5.250608e-02 -1.249576e-01  3.362659e-01  1.332259e-01
+75%    6.745011e-01  5.692513e-01  7.627586e-01  7.905908e-01
+max    2.492019e+00  3.114684e+00  1.786341e+00  1.710902e+00
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize ABOD detector</span>
+<span class="c1"># contamination: persentase outlier yang diharapkan (default 0.1 = 10%)</span>
+<span class="n">abod</span> <span class="o">=</span> <span class="n">ABOD</span><span class="p">(</span><span class="n">contamination</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;fast&#39;</span><span class="p">)</span>
+
+<span class="c1"># Fit model dan prediksi outlier</span>
+<span class="n">outlier_labels</span> <span class="o">=</span> <span class="n">abod</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">)</span>
+<span class="n">outlier_scores</span> <span class="o">=</span> <span class="n">abod</span><span class="o">.</span><span class="n">decision_scores_</span>
+
+<span class="c1"># Tambahkan hasil ke dataframe</span>
+<span class="n">iris_full</span><span class="p">[</span><span class="s1">&#39;outlier_label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">outlier_labels</span>  <span class="c1"># 0: normal, 1: outlier</span>
+<span class="n">iris_full</span><span class="p">[</span><span class="s1">&#39;outlier_score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">outlier_scores</span>
+
+<span class="c1"># Tampilkan summary</span>
+<span class="n">n_outliers</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">outlier_labels</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Outlier Detection Results:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total data points: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">iris_full</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of outliers detected: </span><span class="si">{</span><span class="n">n_outliers</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Percentage of outliers: </span><span class="si">{</span><span class="n">n_outliers</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">iris_full</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Outlier Detection Results:
+Total data points: 150
+Number of outliers detected: 15
+Percentage of outliers: 10.00%
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-v0_8&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Iris Dataset - Outlier Detection Analysis&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+
+<span class="c1"># 1. Outlier score distribution</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">outlier_scores</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">abod</span><span class="o">.</span><span class="n">threshold_</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Threshold: </span><span class="si">{</span><span class="n">abod</span><span class="o">.</span><span class="n">threshold_</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Outlier Score&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Distribution of Outlier Scores&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="c1"># 2. Scatter plot - Sepal Length vs Width</span>
+<span class="n">scatter1</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">iris_full</span><span class="p">[</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">],</span> <span class="n">iris_full</span><span class="p">[</span><span class="s1">&#39;sepal_width&#39;</span><span class="p">],</span>
+    <span class="n">c</span><span class="o">=</span><span class="n">outlier_labels</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span>
+<span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Sepal Length&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Sepal Width&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Sepal: Length vs Width&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">scatter1</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Outlier (1=Yes, 0=No)&#39;</span><span class="p">)</span>
+
+<span class="c1"># 3. Scatter plot - Petal Length vs Width</span>
+<span class="n">scatter2</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">iris_full</span><span class="p">[</span><span class="s1">&#39;petal_length&#39;</span><span class="p">],</span> <span class="n">iris_full</span><span class="p">[</span><span class="s1">&#39;petal_width&#39;</span><span class="p">],</span>
+    <span class="n">c</span><span class="o">=</span><span class="n">outlier_labels</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span>
+<span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Petal Length&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Petal Width&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Petal: Length vs Width&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">scatter2</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Outlier (1=Yes, 0=No)&#39;</span><span class="p">)</span>
+
+<span class="c1"># 4. Boxplot for each feature</span>
+<span class="n">iris_melted</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span>
+    <span class="n">iris_full</span><span class="p">[</span><span class="n">numeric_columns</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;outlier_label&#39;</span><span class="p">]],</span>
+    <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;outlier_label&#39;</span><span class="p">],</span> <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;Feature&#39;</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s1">&#39;Value&#39;</span>
+<span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">iris_melted</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;Feature&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Value&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;outlier_label&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Boxplot by Feature and Outlier Status&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+
+<span class="c1"># 5. PCA visualization</span>
+<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">X_pca</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">)</span>
+<span class="n">scatter3</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">X_pca</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_pca</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="n">c</span><span class="o">=</span><span class="n">outlier_labels</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span>
+<span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;PC1 (</span><span class="si">{</span><span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s1">.2%</span><span class="si">}</span><span class="s1"> variance)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;PC2 (</span><span class="si">{</span><span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">.2%</span><span class="si">}</span><span class="s1"> variance)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;PCA - First Two Components&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">scatter3</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Outlier (1=Yes, 0=No)&#39;</span><span class="p">)</span>
+
+<span class="c1"># 6. Correlation heatmap</span>
+<span class="n">corr_matrix</span> <span class="o">=</span> <span class="n">iris_full</span><span class="p">[</span><span class="n">numeric_columns</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">corr_matrix</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Feature Correlation Heatmap&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Detailed analysis of detected outliers</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Detailed Analysis of Detected Outliers:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+
+<span class="n">outliers_df</span> <span class="o">=</span> <span class="n">iris_full</span><span class="p">[</span><span class="n">iris_full</span><span class="p">[</span><span class="s1">&#39;outlier_label&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">][</span><span class="n">numeric_columns</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;outlier_score&#39;</span><span class="p">]]</span>
+<span class="n">outliers_df</span> <span class="o">=</span> <span class="n">outliers_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;outlier_score&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Top 10 outliers (highest scores):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">outliers_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+
+<span class="c1"># Statistics: Outlier vs Normal</span>
+<span class="n">normal_data</span> <span class="o">=</span> <span class="n">iris_full</span><span class="p">[</span><span class="n">iris_full</span><span class="p">[</span><span class="s1">&#39;outlier_label&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">][</span><span class="n">numeric_columns</span><span class="p">]</span>
+<span class="n">outlier_data</span> <span class="o">=</span> <span class="n">iris_full</span><span class="p">[</span><span class="n">iris_full</span><span class="p">[</span><span class="s1">&#39;outlier_label&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">][</span><span class="n">numeric_columns</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Comparison Statistics:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;Feature&#39;</span><span class="si">:</span><span class="s2">&lt;15</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;Normal Mean&#39;</span><span class="si">:</span><span class="s2">&lt;12</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;Outlier Mean&#39;</span><span class="si">:</span><span class="s2">&lt;12</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;Difference&#39;</span><span class="si">:</span><span class="s2">&lt;10</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">55</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">numeric_columns</span><span class="p">:</span>
+    <span class="n">normal_mean</span> <span class="o">=</span> <span class="n">normal_data</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">outlier_mean</span> <span class="o">=</span> <span class="n">outlier_data</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">outlier_mean</span> <span class="o">-</span> <span class="n">normal_mean</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">col</span><span class="si">:</span><span class="s2">&lt;15</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">normal_mean</span><span class="si">:</span><span class="s2">&lt;12.3f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">outlier_mean</span><span class="si">:</span><span class="s2">&lt;12.3f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">diff</span><span class="si">:</span><span class="s2">&lt;10.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/c6287d99d5f3be018f9cccfbd56ca0bdbdfe2e1369e1d7dae87b944619b29f26.png" src="_images/c6287d99d5f3be018f9cccfbd56ca0bdbdfe2e1369e1d7dae87b944619b29f26.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Detailed Analysis of Detected Outliers:
+==================================================
+
+Top 10 outliers (highest scores):
+     sepal_length  sepal_width  petal_length  petal_width  outlier_score
+41            4.5          2.3           1.3          0.3      -0.035027
+60            5.0          2.0           3.5          1.0      -0.061434
+118           7.7          2.6           6.9          2.3      -0.091648
+106           4.9          2.5           4.5          1.7      -0.101507
+15            5.7          4.4           1.5          0.4      -0.125678
+131           7.9          3.8           6.4          2.0      -0.159041
+108           6.7          2.5           5.8          1.8      -0.198350
+117           7.7          3.8           6.7          2.2      -0.329868
+135           7.7          3.0           6.1          2.3      -0.365791
+85            6.0          3.4           4.5          1.6      -0.386804
+
+Comparison Statistics:
+Feature         Normal Mean  Outlier Mean Difference
+-------------------------------------------------------
+sepal_length    5.791        6.313        0.522     
+sepal_width     3.052        3.073        0.021     
+petal_length    3.650        4.733        1.083     
+petal_width     1.155        1.593        0.439     
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Opsi 1: Hapus outlier</span>
+<span class="n">iris_cleaned</span> <span class="o">=</span> <span class="n">iris_full</span><span class="p">[</span><span class="n">iris_full</span><span class="p">[</span><span class="s1">&#39;outlier_label&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># Opsi 2: Simpan data dengan label outlier (untuk analisis lebih lanjut)</span>
+<span class="n">iris_with_outliers</span> <span class="o">=</span> <span class="n">iris_full</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Data Cleaning Results:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Original dataset size: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">iris_full</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cleaned dataset size: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">iris_cleaned</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Removed </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">iris_full</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">iris_cleaned</span><span class="p">)</span><span class="si">}</span><span class="s2"> outliers&quot;</span><span class="p">)</span>
+
+<span class="c1"># Simpan hasil</span>
+<span class="n">iris_cleaned</span><span class="p">[</span><span class="n">numeric_columns</span><span class="p">]</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;csv/iris_cleaned.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">iris_with_outliers</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;csv/iris_with_outlier_labels.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Files saved:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;- iris_cleaned.csv (data tanpa outlier)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;- iris_with_outlier_labels.csv (data dengan label outlier)&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Cleaned data preview:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">iris_cleaned</span><span class="p">[</span><span class="n">numeric_columns</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Cleaned data statistics:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">iris_cleaned</span><span class="p">[</span><span class="n">numeric_columns</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data Cleaning Results:
+Original dataset size: 150
+Cleaned dataset size: 135
+Removed 15 outliers
+
+Files saved:
+- iris_cleaned.csv (data tanpa outlier)
+- iris_with_outlier_labels.csv (data dengan label outlier)
+
+Cleaned data preview:
+   sepal_length  sepal_width  petal_length  petal_width
+0           5.1          3.5           1.4          0.2
+1           4.9          3.0           1.4          0.2
+2           4.7          3.2           1.3          0.2
+3           4.6          3.1           1.5          0.2
+4           5.0          3.6           1.4          0.2
+
+Cleaned data statistics:
+       sepal_length  sepal_width  petal_length  petal_width
+count    135.000000   135.000000    135.000000   135.000000
+mean       5.791111     3.051852      3.650370     1.154815
+std        0.761721     0.401276      1.709319     0.751389
+min        4.300000     2.200000      1.100000     0.100000
+25%        5.100000     2.800000      1.550000     0.300000
+50%        5.700000     3.000000      4.200000     1.300000
+75%        6.400000     3.300000      5.000000     1.800000
+max        7.700000     4.200000      6.700000     2.500000
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="hasil-visualisasi-petal-length-vs-petal-width-pada-power-bi">
+<h3>Hasil Visualisasi Petal Length vs Petal Width pada Power BI<a class="headerlink" href="#hasil-visualisasi-petal-length-vs-petal-width-pada-power-bi" title="Link to this heading">#</a></h3>
+<p><img alt="image.png" src="attachment:image.png" /></p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="data-understanding.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Data Understanding</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="imbalanced.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Imbalanced Data</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pendahuluan">1. Pendahuluan</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pengertian-data-preprocessing">1.1 Pengertian Data Preprocessing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pentingnya-data-preprocessing">1.2 Pentingnya Data Preprocessing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahapan-data-preprocessing">2. Tahapan Data Preprocessing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-cleaning-pembersihan-data">2.1 Data Cleaning (Pembersihan Data)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#menangani-missing-values">Menangani Missing Values</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#menangani-outliers">Menangani Outliers</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-transformation">2.2 Data Transformation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#normalization-dan-standardization">Normalization dan Standardization</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#encoding-categorical-data">Encoding Categorical Data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering">Feature Engineering</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-reduction">2.3 Data Reduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dimensionality-reduction">Dimensionality Reduction</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-reduction">Dataset Reduction</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices-dan-tips-praktis">3. Best Practices dan Tips Praktis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-management">Workflow Management</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-pitfalls">Common Pitfalls</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-strategies">Validation Strategies</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">4. Kesimpulan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#studi-kasus">Studi Kasus</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pengenalan-metode-abod-angle-based-outlier-detection">Pengenalan Metode ABOD (Angle-Based Outlier Detection)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-deteksi-outlier-dengan-pycaret-dan-penggunaan-power-bi">Implementasi Deteksi Outlier dengan PyCaret dan Penggunaan Power BI</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-visualisasi-petal-length-vs-petal-width-pada-power-bi">Hasil Visualisasi Petal Length vs Petal Width pada Power BI</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

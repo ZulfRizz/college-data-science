@@ -1,0 +1,995 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Klasifikasi Sinyal Detak Jantung (Binary Classification) &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'BinaryHeartBeatClassification';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Voice Recognition" href="voice_recognition.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/pict.jpg" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/pict.jpg" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    About Me
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="business-understanding.html">Business Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-understanding.html">Data Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-praprocessing.html">Data Preprocessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="imbalanced.html">Imbalanced Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ensemble_learning.html">Ensemble Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="voice_recognition.html">Voice Recognition</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Klasifikasi Sinyal Detak Jantung (Binary Classification)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FBinaryHeartBeatClassification.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/BinaryHeartBeatClassification.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Klasifikasi Sinyal Detak Jantung (Binary Classification)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#business-understanding-pemahaman-bisnis">1. Business Understanding (Pemahaman Bisnis)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-understanding-pemahaman-data">2. Data Understanding (Pemahaman Data)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-library">Import Library</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data-exploratory-data-analysis-eda">Load Data &amp; Exploratory Data Analysis (EDA)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preprocessing">3. Data Preprocessing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling-pemodelan-data">4. Modeling (Pemodelan Data)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#membangun-dan-melatih-model-cnn">Membangun dan Melatih Model CNN</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-training-history">Visualisasi Training History</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-evaluasi">5. Evaluation (Evaluasi)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#membuat-file-untuk-test">Membuat file untuk test</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="klasifikasi-sinyal-detak-jantung-binary-classification">
+<h1>Klasifikasi Sinyal Detak Jantung (Binary Classification)<a class="headerlink" href="#klasifikasi-sinyal-detak-jantung-binary-classification" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">pip</span> install -q numpy pandas matplotlib seaborn scipy scikit-learn tensorflow
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>^C
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+</div>
+</div>
+<section id="business-understanding-pemahaman-bisnis">
+<h2>1. Business Understanding (Pemahaman Bisnis)<a class="headerlink" href="#business-understanding-pemahaman-bisnis" title="Link to this heading">#</a></h2>
+<p>Tujuan Proyek: Tujuan utama dari proyek ini adalah untuk membangun model machine learning yang mampu mengklasifikasikan sinyal suara detak jantung menjadi dua kategori: Normal (sehat) dan Abnormal (memiliki patologi jantung seperti cacat katup atau penyakit arteri koroner).</p>
+<p>Manfaat:</p>
+<ul class="simple">
+<li><p>Membantu tenaga medis dalam diagnosis awal penyakit jantung secara non-invasif.</p></li>
+<li><p>Mengurangi kesalahan manusia dalam auskultasi (mendengarkan detak jantung).</p></li>
+<li><p>Memungkinkan pemantauan pasien jarak jauh.</p></li>
+</ul>
+</section>
+<section id="data-understanding-pemahaman-data">
+<h2>2. Data Understanding (Pemahaman Data)<a class="headerlink" href="#data-understanding-pemahaman-data" title="Link to this heading">#</a></h2>
+<p>Pada tahap ini, kita memuat data dari format .arff, memeriksa dimensi, keseimbangan kelas, dan memvisualisasikan bentuk gelombang sinyal untuk melihat perbedaan pola antara jantung normal dan abnormal</p>
+<section id="import-library">
+<h3>Import Library<a class="headerlink" href="#import-library" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">arff</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">LabelEncoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.utils.class_weight</span><span class="w"> </span><span class="kn">import</span> <span class="n">compute_class_weight</span>
+
+<span class="c1"># Deep Learning Libraries</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tensorflow</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tf</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tensorflow.keras.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequential</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tensorflow.keras.layers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dense</span><span class="p">,</span> <span class="n">Conv1D</span><span class="p">,</span> <span class="n">MaxPooling1D</span><span class="p">,</span> <span class="n">Flatten</span><span class="p">,</span> <span class="n">Dropout</span><span class="p">,</span> <span class="n">GlobalAveragePooling1D</span><span class="p">,</span> <span class="n">BatchNormalization</span><span class="p">,</span> <span class="n">Activation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tensorflow.keras.callbacks</span><span class="w"> </span><span class="kn">import</span> <span class="n">EarlyStopping</span><span class="p">,</span> <span class="n">ReduceLROnPlateau</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Library imported successfully&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Library imported successfully
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="load-data-exploratory-data-analysis-eda">
+<h3>Load Data &amp; Exploratory Data Analysis (EDA)<a class="headerlink" href="#load-data-exploratory-data-analysis-eda" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fungsi untuk memuat data ARFF ke Pandas DataFrame</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_arff_data</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="n">data</span><span class="p">,</span> <span class="n">meta</span> <span class="o">=</span> <span class="n">arff</span><span class="o">.</span><span class="n">loadarff</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="c1"># Decode byte strings ke normal strings jika diperlukan (biasanya kolom target)</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">([</span><span class="nb">object</span><span class="p">]):</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+
+<span class="c1"># Memuat data Train dan Test</span>
+<span class="n">df_train</span> <span class="o">=</span> <span class="n">load_arff_data</span><span class="p">(</span><span class="s1">&#39;./data/BinaryHeartbeat_TRAIN.arff&#39;</span><span class="p">)</span>
+<span class="n">df_test</span> <span class="o">=</span> <span class="n">load_arff_data</span><span class="p">(</span><span class="s1">&#39;./data/BinaryHeartbeat_TEST.arff&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dimensi Data Train: </span><span class="si">{</span><span class="n">df_train</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dimensi Data Test: </span><span class="si">{</span><span class="n">df_test</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Cek distribusi kelas</span>
+<span class="n">target_col</span> <span class="o">=</span> <span class="n">df_train</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Asumsi kolom terakhir adalah target</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Distribusi Kelas pada Data Train:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_train</span><span class="p">[</span><span class="n">target_col</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+
+<span class="c1"># Visualisasi Sinyal</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Ambil satu contoh Normal dan satu Abnormal</span>
+<span class="n">normal_signal</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="n">df_train</span><span class="p">[</span><span class="n">target_col</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Normal&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">abnormal_signal</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="n">df_train</span><span class="p">[</span><span class="n">target_col</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Abnormal&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># Plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">normal_signal</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Contoh Sinyal Detak Jantung: Normal&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">abnormal_signal</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Contoh Sinyal Detak Jantung: Abnormal&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Dimensi Data Train: (204, 18531)
+Dimensi Data Test: (205, 18531)
+
+Distribusi Kelas pada Data Train:
+target
+Abnormal    149
+Normal       55
+Name: count, dtype: int64
+</pre></div>
+</div>
+<img alt="_images/99482b4e4efe2fd9c39b83bb824659747b93c61b07e24041a768f77e4be733c9.png" src="_images/99482b4e4efe2fd9c39b83bb824659747b93c61b07e24041a768f77e4be733c9.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="data-preprocessing">
+<h2>3. Data Preprocessing<a class="headerlink" href="#data-preprocessing" title="Link to this heading">#</a></h2>
+<p>Data detak jantung memiliki dimensi sangat tinggi (18.530 fitur waktu) dengan jumlah sampel yang sedikit (409 sampel). Preprocessing yang dilakukan:</p>
+<ol class="arabic simple">
+<li><p>Label Encoding: Mengubah label ‘Normal’/’Abnormal’ menjadi 0/1.</p></li>
+<li><p>Reshaping: Mengubah bentuk data agar sesuai input model CNN 1D (Samples, Time Steps, Features).</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Split Features dan Target</span>
+<span class="n">X_train_raw</span> <span class="o">=</span> <span class="n">df_train</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">y_train_raw</span> <span class="o">=</span> <span class="n">df_train</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">X_test_raw</span> <span class="o">=</span> <span class="n">df_test</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">y_test_raw</span> <span class="o">=</span> <span class="n">df_test</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># 2. Encoding Label (Normal=0, Abnormal=1)</span>
+<span class="n">le</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">y_train_raw</span><span class="p">)</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">y_test_raw</span><span class="p">)</span>
+
+<span class="c1"># 3. Standard Scaling (PENTING untuk Neural Network)</span>
+<span class="c1"># Menyamakan skala sinyal agar model lebih mudah belajar</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">X_train_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train_raw</span><span class="p">)</span>
+<span class="n">X_test_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test_raw</span><span class="p">)</span>
+
+
+<span class="c1"># 4. Reshape ke 3D untuk CNN (Samples, Time Steps, Features)</span>
+<span class="n">X_train_cnn</span> <span class="o">=</span> <span class="n">X_train_scaled</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">X_train_scaled</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">X_train_scaled</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">X_test_cnn</span> <span class="o">=</span> <span class="n">X_test_scaled</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">X_test_scaled</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">X_test_scaled</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 5. Menghitung Class Weights (KUNCI MENINGKATKAN AKURASI)</span>
+<span class="c1"># Ini akan memberikan bobot lebih besar pada kelas &#39;Normal&#39; yang jumlahnya sedikit</span>
+<span class="n">class_weights</span> <span class="o">=</span> <span class="n">compute_class_weight</span><span class="p">(</span><span class="n">class_weight</span><span class="o">=</span><span class="s1">&#39;balanced&#39;</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_train</span><span class="p">),</span> <span class="n">y</span><span class="o">=</span><span class="n">y_train</span><span class="p">)</span>
+<span class="n">class_weights_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">class_weights</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Class Weights: </span><span class="si">{</span><span class="n">class_weights_dict</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Class Weights: {0: np.float64(0.6845637583892618), 1: np.float64(1.8545454545454545)}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="modeling-pemodelan-data">
+<h2>4. Modeling (Pemodelan Data)<a class="headerlink" href="#modeling-pemodelan-data" title="Link to this heading">#</a></h2>
+<p>Kita akan menggunakan 1D-CNN (Convolutional Neural Network). Alasan Pemilihan Model:</p>
+<ul class="simple">
+<li><p>Data berupa Time Series panjang. CNN sangat efisien dalam mengekstrak fitur lokal (pola gelombang) dari data sekuensial panjang tanpa terbebani jumlah parameter yang meledak seperti pada Fully Connected Network.</p></li>
+<li><p>Karena datanya sedikit (High Dimensionality, Low Sample Size), kita menggunakan arsitektur sederhana dengan Dropout untuk mencegah overfitting.</p></li>
+</ul>
+<section id="membangun-dan-melatih-model-cnn">
+<h3>Membangun dan Melatih Model CNN<a class="headerlink" href="#membangun-dan-melatih-model-cnn" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Membersihkan sesi lama</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">backend</span><span class="o">.</span><span class="n">clear_session</span><span class="p">()</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
+
+<span class="c1"># --- Block 1 ---</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Conv1D</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+          <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">18530</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">BatchNormalization</span><span class="p">())</span>  <span class="c1"># Menstabilkan training</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Activation</span><span class="p">(</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">MaxPooling1D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.2</span><span class="p">))</span>
+
+<span class="c1"># --- Block 2 ---</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Conv1D</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">BatchNormalization</span><span class="p">())</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Activation</span><span class="p">(</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">MaxPooling1D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.2</span><span class="p">))</span>
+
+<span class="c1"># --- Block 3 ---</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Conv1D</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">BatchNormalization</span><span class="p">())</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Activation</span><span class="p">(</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="c1"># Menggantikan Flatten untuk mengurangi parameter</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">GlobalAveragePooling1D</span><span class="p">())</span>
+
+<span class="c1"># --- Dense Layers ---</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">BatchNormalization</span><span class="p">())</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Activation</span><span class="p">(</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.4</span><span class="p">))</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">))</span>
+
+<span class="c1"># Compile dengan Learning Rate yang lebih kecil di awal</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;binary_crossentropy&#39;</span><span class="p">,</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
+
+<span class="c1"># Callbacks</span>
+<span class="n">early_stop</span> <span class="o">=</span> <span class="n">EarlyStopping</span><span class="p">(</span>
+    <span class="n">monitor</span><span class="o">=</span><span class="s1">&#39;val_loss&#39;</span><span class="p">,</span> <span class="n">patience</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">restore_best_weights</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># ReduceLROnPlateau: Turunkan learning rate jika val_loss macet (membantu fine-tuning di epoch akhir)</span>
+<span class="n">lr_scheduler</span> <span class="o">=</span> <span class="n">ReduceLROnPlateau</span><span class="p">(</span>
+    <span class="n">monitor</span><span class="o">=</span><span class="s1">&#39;val_loss&#39;</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">patience</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">min_lr</span><span class="o">=</span><span class="mf">0.00001</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Training dengan Class Weights</span>
+<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+    <span class="n">X_train_cnn</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span>
+    <span class="n">epochs</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>  <span class="c1"># Tambahkan epoch karena ada early stopping</span>
+    <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">X_test_cnn</span><span class="p">,</span> <span class="n">y_test</span><span class="p">),</span>
+    <span class="n">class_weight</span><span class="o">=</span><span class="n">class_weights_dict</span><span class="p">,</span>  <span class="c1"># &lt;&lt;&lt; PENTING: Masukkan bobot kelas di sini</span>
+    <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">early_stop</span><span class="p">,</span> <span class="n">lr_scheduler</span><span class="p">],</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/50
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">12s</span> 734ms/step - accuracy: 0.4461 - loss: 0.7671 - val_accuracy: 0.5366 - val_loss: 0.6930 - learning_rate: 0.0010
+Epoch 2/50
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">9s</span> 694ms/step - accuracy: 0.5196 - loss: 0.7547 - val_accuracy: 0.7220 - val_loss: 0.6383 - learning_rate: 0.0010
+Epoch 3/50
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">11s</span> 865ms/step - accuracy: 0.6176 - loss: 0.7009 - val_accuracy: 0.7317 - val_loss: 0.6100 - learning_rate: 0.0010
+Epoch 4/50
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">10s</span> 755ms/step - accuracy: 0.5980 - loss: 0.6601 - val_accuracy: 0.7366 - val_loss: 0.5761 - learning_rate: 0.0010
+Epoch 5/50
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">9s</span> 710ms/step - accuracy: 0.5882 - loss: 0.6606 - val_accuracy: 0.7317 - val_loss: 0.5598 - learning_rate: 0.0010
+Epoch 6/50
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">9s</span> 706ms/step - accuracy: 0.6422 - loss: 0.5994 - val_accuracy: 0.7220 - val_loss: 0.5560 - learning_rate: 0.0010
+Epoch 7/50
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">9s</span> 701ms/step - accuracy: 0.6275 - loss: 0.7265 - val_accuracy: 0.7268 - val_loss: 0.5611 - learning_rate: 0.0010
+Epoch 8/50
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">9s</span> 714ms/step - accuracy: 0.6618 - loss: 0.6476 - val_accuracy: 0.7317 - val_loss: 0.5605 - learning_rate: 0.0010
+Epoch 9/50
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 599ms/step - accuracy: 0.6139 - loss: 0.8199
+Epoch 9: ReduceLROnPlateau reducing learning rate to 0.0005000000237487257.
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">9s</span> 709ms/step - accuracy: 0.6618 - loss: 0.6938 - val_accuracy: 0.7220 - val_loss: 0.5574 - learning_rate: 0.0010
+Epoch 10/50
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">9s</span> 724ms/step - accuracy: 0.6569 - loss: 0.6239 - val_accuracy: 0.7220 - val_loss: 0.5572 - learning_rate: 5.0000e-04
+Epoch 11/50
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">9s</span> 706ms/step - accuracy: 0.6814 - loss: 0.6123 - val_accuracy: 0.7415 - val_loss: 0.5566 - learning_rate: 5.0000e-04
+Epoch 12/50
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">10s</span> 793ms/step - accuracy: 0.7206 - loss: 0.5660 - val_accuracy: 0.7415 - val_loss: 0.5544 - learning_rate: 5.0000e-04
+Epoch 13/50
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">9s</span> 682ms/step - accuracy: 0.6961 - loss: 0.5928 - val_accuracy: 0.7415 - val_loss: 0.5574 - learning_rate: 5.0000e-04
+Epoch 14/50
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">8s</span> 650ms/step - accuracy: 0.7108 - loss: 0.6110 - val_accuracy: 0.7463 - val_loss: 0.5581 - learning_rate: 5.0000e-04
+Epoch 15/50
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 565ms/step - accuracy: 0.6393 - loss: 0.6189
+Epoch 15: ReduceLROnPlateau reducing learning rate to 0.0002500000118743628.
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">9s</span> 676ms/step - accuracy: 0.6716 - loss: 0.5726 - val_accuracy: 0.7317 - val_loss: 0.5637 - learning_rate: 5.0000e-04
+Epoch 16/50
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">9s</span> 684ms/step - accuracy: 0.6667 - loss: 0.6293 - val_accuracy: 0.7268 - val_loss: 0.5622 - learning_rate: 2.5000e-04
+Epoch 17/50
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">9s</span> 681ms/step - accuracy: 0.7255 - loss: 0.5625 - val_accuracy: 0.7512 - val_loss: 0.5540 - learning_rate: 2.5000e-04
+Epoch 18/50
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">9s</span> 669ms/step - accuracy: 0.7500 - loss: 0.5516 - val_accuracy: 0.7268 - val_loss: 0.5703 - learning_rate: 2.5000e-04
+Epoch 19/50
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">8s</span> 654ms/step - accuracy: 0.7206 - loss: 0.5583 - val_accuracy: 0.7366 - val_loss: 0.5535 - learning_rate: 2.5000e-04
+Epoch 20/50
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">8s</span> 649ms/step - accuracy: 0.7255 - loss: 0.5754 - val_accuracy: 0.7122 - val_loss: 0.5659 - learning_rate: 2.5000e-04
+Epoch 21/50
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">9s</span> 674ms/step - accuracy: 0.7255 - loss: 0.5543 - val_accuracy: 0.7024 - val_loss: 0.5680 - learning_rate: 2.5000e-04
+Epoch 22/50
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 542ms/step - accuracy: 0.7095 - loss: 0.6179
+Epoch 22: ReduceLROnPlateau reducing learning rate to 0.0001250000059371814.
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">8s</span> 654ms/step - accuracy: 0.6863 - loss: 0.6037 - val_accuracy: 0.6878 - val_loss: 0.5729 - learning_rate: 2.5000e-04
+Epoch 23/50
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">8s</span> 653ms/step - accuracy: 0.6912 - loss: 0.6550 - val_accuracy: 0.6585 - val_loss: 0.6208 - learning_rate: 1.2500e-04
+Epoch 24/50
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">8s</span> 641ms/step - accuracy: 0.7059 - loss: 0.5757 - val_accuracy: 0.6634 - val_loss: 0.6346 - learning_rate: 1.2500e-04
+Epoch 25/50
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 526ms/step - accuracy: 0.7280 - loss: 0.6231
+Epoch 25: ReduceLROnPlateau reducing learning rate to 6.25000029685907e-05.
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">8s</span> 635ms/step - accuracy: 0.7402 - loss: 0.5552 - val_accuracy: 0.6537 - val_loss: 0.5821 - learning_rate: 1.2500e-04
+Epoch 26/50
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">8s</span> 642ms/step - accuracy: 0.7304 - loss: 0.5321 - val_accuracy: 0.6537 - val_loss: 0.5850 - learning_rate: 6.2500e-05
+Epoch 27/50
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">8s</span> 640ms/step - accuracy: 0.7549 - loss: 0.5704 - val_accuracy: 0.6585 - val_loss: 0.5882 - learning_rate: 6.2500e-05
+Epoch 28/50
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 540ms/step - accuracy: 0.7096 - loss: 0.5419
+Epoch 28: ReduceLROnPlateau reducing learning rate to 3.125000148429535e-05.
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">8s</span> 641ms/step - accuracy: 0.7059 - loss: 0.5637 - val_accuracy: 0.6585 - val_loss: 0.5896 - learning_rate: 6.2500e-05
+Epoch 29/50
+<span class=" -Color -Color-Bold">13/13</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">9s</span> 666ms/step - accuracy: 0.6863 - loss: 0.5910 - val_accuracy: 0.6585 - val_loss: 0.5883 - learning_rate: 3.1250e-05
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="visualisasi-training-history">
+<h3>Visualisasi Training History<a class="headerlink" href="#visualisasi-training-history" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot Accuracy dan Loss</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Train Accuracy&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;val_accuracy&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Val Accuracy&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Model Accuracy&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;loss&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Train Loss&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;val_loss&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Val Loss&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Model Loss&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/55ee60bbd26f33a7771d0d0fb31d044aeb7e3799bef725d92a0125d41e5c689d.png" src="_images/55ee60bbd26f33a7771d0d0fb31d044aeb7e3799bef725d92a0125d41e5c689d.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="evaluation-evaluasi">
+<h2>5. Evaluation (Evaluasi)<a class="headerlink" href="#evaluation-evaluasi" title="Link to this heading">#</a></h2>
+<p>Mengevaluasi performa model menggunakan data Test yang belum pernah dilihat model sebelumnya.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Prediksi</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">joblib</span>
+<span class="n">y_pred_prob</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_cnn</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_pred_prob</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="c1"># Classification Report</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Laporan Klasifikasi:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="n">le</span><span class="o">.</span><span class="n">classes_</span><span class="p">))</span>
+
+<span class="c1"># Confusion Matrix</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">,</span>
+            <span class="n">xticklabels</span><span class="o">=</span><span class="n">le</span><span class="o">.</span><span class="n">classes_</span><span class="p">,</span> <span class="n">yticklabels</span><span class="o">=</span><span class="n">le</span><span class="o">.</span><span class="n">classes_</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Prediksi&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Aktual&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Confusion Matrix&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Simpan model untuk deployment</span>
+<span class="n">model</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;model/heartbeat_cnn_model.h5&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Model berhasil disimpan sebagai &#39;heartbeat_cnn_model.h5&#39;&quot;</span><span class="p">)</span>
+
+<span class="c1"># Simpan Scaler agar bisa dipakai di Streamlit</span>
+<span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">scaler</span><span class="p">,</span> <span class="s1">&#39;model/scaler.save&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Scaler berhasil disimpan sebagai &#39;scaler.save&#39;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">7/7</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">2s</span> 222ms/step
+Laporan Klasifikasi:
+              precision    recall  f1-score   support
+
+    Abnormal       0.77      0.91      0.84       150
+      Normal       0.52      0.25      0.34        55
+
+    accuracy                           0.74       205
+   macro avg       0.64      0.58      0.59       205
+weighted avg       0.70      0.74      0.70       205
+</pre></div>
+</div>
+<img alt="_images/7a01646355e25b77bfe74d26b408519da6557822c5ce174ab228bc7f9f03f99e.png" src="_images/7a01646355e25b77bfe74d26b408519da6557822c5ce174ab228bc7f9f03f99e.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save(&#39;my_model.keras&#39;)` or `keras.saving.save_model(model, &#39;my_model.keras&#39;)`. 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model berhasil disimpan sebagai &#39;heartbeat_cnn_model.h5&#39;
+Scaler berhasil disimpan sebagai &#39;scaler.save&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<section id="membuat-file-untuk-test">
+<h3>Membuat file untuk test<a class="headerlink" href="#membuat-file-untuk-test" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">arff</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># Load test data</span>
+<span class="n">data_test</span><span class="p">,</span> <span class="n">meta_test</span> <span class="o">=</span> <span class="n">arff</span><span class="o">.</span><span class="n">loadarff</span><span class="p">(</span><span class="s1">&#39;./data/BinaryHeartbeat_TEST.arff&#39;</span><span class="p">)</span>
+<span class="n">df_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data_test</span><span class="p">)</span>
+
+<span class="c1"># Decode &#39;target&#39; column to string</span>
+<span class="n">df_test</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_test</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+
+<span class="c1"># Save first 5 rows to CSV</span>
+<span class="n">df_test</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;sample_heartbeat_test.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sample test data saved to &#39;sample_heartbeat_test.csv&#39;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_test</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample test data saved to &#39;sample_heartbeat_test.csv&#39;
+       att1      att2      att3      att4      att5      att6      att7  \
+0 -0.000488 -0.002472 -0.003754 -0.003998 -0.005188 -0.005524 -0.005859   
+1  0.013977  0.029633  0.025024  0.023315  0.022430  0.019318  0.015320   
+2  0.065521  0.107452  0.055298  0.034119  0.001434 -0.016846 -0.037689   
+3 -0.002228 -0.003265 -0.003235 -0.002747 -0.003174 -0.001312 -0.006012   
+4 -0.004822 -0.006989 -0.002533  0.001434  0.001160  0.004730  0.002533   
+
+       att8      att9     att10  ...  att18522  att18523  att18524  att18525  \
+0 -0.006409 -0.007111 -0.007874  ... -0.006439 -0.007996 -0.008087 -0.009155   
+1  0.013672  0.008057  0.009125  ...  0.038666  0.039734  0.040985  0.040131   
+2 -0.050598 -0.061523 -0.067261  ...  0.058411  0.053528  0.046143  0.041870   
+3 -0.004303 -0.004608 -0.007080  ...  0.013428  0.012604  0.012695  0.013367   
+4  0.000977 -0.003174 -0.006256  ...  0.012878  0.012115  0.012451  0.009918   
+
+   att18526  att18527  att18528  att18529  att18530    target  
+0 -0.009827 -0.009796 -0.010010 -0.009888 -0.009705  Abnormal  
+1  0.041840  0.042877  0.047241  0.048340  0.048737  Abnormal  
+2  0.037140  0.034393  0.031189  0.027863  0.024017  Abnormal  
+3  0.012421  0.013153  0.011841  0.013336  0.010254  Abnormal  
+4  0.010529  0.011200  0.010529  0.012085  0.012482  Abnormal  
+
+[5 rows x 18531 columns]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="voice_recognition.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Voice Recognition</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#business-understanding-pemahaman-bisnis">1. Business Understanding (Pemahaman Bisnis)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-understanding-pemahaman-data">2. Data Understanding (Pemahaman Data)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-library">Import Library</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data-exploratory-data-analysis-eda">Load Data &amp; Exploratory Data Analysis (EDA)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preprocessing">3. Data Preprocessing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling-pemodelan-data">4. Modeling (Pemodelan Data)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#membangun-dan-melatih-model-cnn">Membangun dan Melatih Model CNN</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-training-history">Visualisasi Training History</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-evaluasi">5. Evaluation (Evaluasi)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#membuat-file-untuk-test">Membuat file untuk test</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
