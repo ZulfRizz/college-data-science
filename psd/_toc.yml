@@ -11,3 +11,4 @@ chapters:
 - file: imbalanced
 - file: ensemble_learning
 - file: voice_recognition
+- file: BinaryHeartBeatClassification
