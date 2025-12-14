@@ -1,0 +1,658 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Tahapan 1: Business Understanding &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'business-understanding';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Data Understanding" href="data-understanding.html" />
+    <link rel="prev" title="About Me" href="intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/pict.jpg" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/pict.jpg" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    About Me
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Business Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-understanding.html">Data Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-praprocessing.html">Data Preprocessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="imbalanced.html">Imbalanced Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ensemble_learning.html">Ensemble Learning</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fbusiness-understanding.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/business-understanding.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Tahapan 1: Business Understanding</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menentukan-tujuan-bisnis-determine-business-objectives">1.1 Menentukan Tujuan Bisnis (Determine Business Objectives)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#memahami-latar-belakang-bisnis">1.1.1 Memahami Latar Belakang Bisnis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#merumuskan-tujuan-bisnis-yang-smart">1.1.2 Merumuskan Tujuan Bisnis yang SMART</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menentukan-kriteria-keberhasilan-bisnis">1.1.3 Menentukan Kriteria Keberhasilan Bisnis</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menilai-situasi-dan-kondisi-assess-situation">1.2 Menilai Situasi dan Kondisi (Assess Situation)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inventarisasi-sumber-daya">1.2.1 Inventarisasi Sumber Daya</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-batasan-asumsi-dan-risiko">1.2.2 Analisis Batasan, Asumsi, dan Risiko</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-biaya-dan-manfaat-cost-benefit-analysis">1.2.3 Analisis Biaya dan Manfaat (Cost-Benefit Analysis)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membuat-rencana-proyek-produce-project-plan">1.3 Membuat Rencana Proyek (Produce Project Plan)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rencana-dan-jadwal-proyek">1.3.1 Rencana dan Jadwal Proyek</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definisi-deliverables">1.3.2 Definisi <em>Deliverables</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pemilihan-alat-dan-teknik-awal">1.3.3 Pemilihan Alat dan Teknik Awal</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="tahapan-1-business-understanding">
+<h1>Tahapan 1: Business Understanding<a class="headerlink" href="#tahapan-1-business-understanding" title="Link to this heading">#</a></h1>
+<p>Fase <strong>Business Understanding</strong> adalah langkah paling awal dan paling krusial dalam siklus hidup proyek data science, sebagaimana didefinisikan dalam metodologi CRISP-DM. Tujuan utamanya adalah untuk memastikan bahwa proyek yang akan dikerjakan benar-benar selaras dengan kebutuhan bisnis dan dapat memberikan nilai tambah yang nyata.</p>
+<p>Fase ini berfokus pada tiga pilar utama:</p>
+<ol class="arabic simple">
+<li><p><strong>Menentukan Tujuan Bisnis</strong>: Memahami “apa” dan “mengapa” dari masalah yang ingin diselesaikan.</p></li>
+<li><p><strong>Menilai Situasi dan Kondisi</strong>: Menginventarisasi sumber daya, batasan, dan risiko.</p></li>
+<li><p><strong>Membuat Rencana Proyek</strong>: Menyusun kerangka kerja dan langkah-langkah awal.</p></li>
+</ol>
+<hr class="docutils" />
+<section id="menentukan-tujuan-bisnis-determine-business-objectives">
+<h2>1.1 Menentukan Tujuan Bisnis (Determine Business Objectives)<a class="headerlink" href="#menentukan-tujuan-bisnis-determine-business-objectives" title="Link to this heading">#</a></h2>
+<p>Langkah ini adalah tentang menerjemahkan masalah bisnis menjadi tujuan yang jelas dan terukur. Tanpa tujuan yang jelas, tim data science akan bekerja tanpa arah.</p>
+<section id="memahami-latar-belakang-bisnis">
+<h3>1.1.1 Memahami Latar Belakang Bisnis<a class="headerlink" href="#memahami-latar-belakang-bisnis" title="Link to this heading">#</a></h3>
+<p>Sebelum mendefinisikan tujuan, penting untuk memahami konteksnya. Tim proyek perlu menggali informasi mengenai:</p>
+<ul class="simple">
+<li><p><strong>Situasi Bisnis Saat Ini</strong>: Apa masalah yang sedang dihadapi? (Contoh: Tingkat <em>churn</em> pelanggan meningkat dalam dua kuartal terakhir).</p></li>
+<li><p><strong>Struktur Organisasi</strong>: Departemen mana yang akan terpengaruh oleh proyek ini? Siapa saja pemangku kepentingan (stakeholders) utamanya?</p></li>
+<li><p><strong>Peluang Bisnis</strong>: Apa peluang yang bisa didapatkan jika masalah ini teratasi? (Contoh: Menghemat biaya akuisisi pelanggan baru dengan mempertahankan pelanggan lama).</p></li>
+</ul>
+</section>
+<section id="merumuskan-tujuan-bisnis-yang-smart">
+<h3>1.1.2 Merumuskan Tujuan Bisnis yang SMART<a class="headerlink" href="#merumuskan-tujuan-bisnis-yang-smart" title="Link to this heading">#</a></h3>
+<p>Tujuan yang baik haruslah <strong>SMART</strong>:</p>
+<ul class="simple">
+<li><p><strong>Specific (Spesifik)</strong>: Tujuan harus jelas. <em>Bukan “Meningkatkan penjualan”, tetapi “Meningkatkan penjualan produk kategori X pada segmen pelanggan Y.”</em></p></li>
+<li><p><strong>Measurable (Terukur)</strong>: Harus ada metrik untuk mengukur keberhasilan. <em>Bukan “Mengurangi churn”, tetapi “Menurunkan churn rate dari 5% menjadi 3%.”</em></p></li>
+<li><p><strong>Achievable (Dapat Dicapai)</strong>: Tujuan harus realistis dengan sumber daya yang ada.</p></li>
+<li><p><strong>Relevant (Relevan)</strong>: Tujuan harus mendukung strategi bisnis perusahaan yang lebih besar.</p></li>
+<li><p><strong>Time-bound (Terikat Waktu)</strong>: Harus ada tenggat waktu yang jelas. <em>“Target harus tercapai dalam 6 bulan ke depan.”</em></p></li>
+</ul>
+</section>
+<section id="menentukan-kriteria-keberhasilan-bisnis">
+<h3>1.1.3 Menentukan Kriteria Keberhasilan Bisnis<a class="headerlink" href="#menentukan-kriteria-keberhasilan-bisnis" title="Link to this heading">#</a></h3>
+<p>Ini adalah metrik akhir yang digunakan oleh pemangku kepentingan untuk menilai apakah proyek berhasil atau tidak. Kriteria ini harus dinyatakan dalam bahasa bisnis, bukan bahasa teknis.</p>
+<ul class="simple">
+<li><p><strong>Contoh Kriteria Teknis (Bukan Kriteria Bisnis)</strong>: “Model prediksi memiliki akurasi 95%.”</p></li>
+<li><p><strong>Contoh Kriteria Keberhasilan Bisnis</strong>: “Proyek dianggap berhasil jika mampu memberikan daftar 1000 pelanggan paling berisiko <em>churn</em> setiap bulannya, dan dari daftar tersebut, tim retensi berhasil mempertahankan minimal 15% di antaranya.”</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="menilai-situasi-dan-kondisi-assess-situation">
+<h2>1.2 Menilai Situasi dan Kondisi (Assess Situation)<a class="headerlink" href="#menilai-situasi-dan-kondisi-assess-situation" title="Link to this heading">#</a></h2>
+<p>Setelah tujuan ditetapkan, langkah selanjutnya adalah melakukan “uji realitas” dengan menilai semua faktor internal dan eksternal yang dapat memengaruhi proyek.</p>
+<section id="inventarisasi-sumber-daya">
+<h3>1.2.1 Inventarisasi Sumber Daya<a class="headerlink" href="#inventarisasi-sumber-daya" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Data</strong>: Data apa saja yang tersedia? Di mana disimpannya (database, file, API)? Apakah ada kamus data? Siapa penanggung jawab data tersebut?</p></li>
+<li><p><strong>Personel</strong>: Siapa saja yang memiliki keahlian yang dibutuhkan? (Ahli domain, Data Engineer, Data Analyst). Apakah keahlian mereka tersedia untuk proyek ini?</p></li>
+<li><p><strong>Infrastruktur &amp; Alat</strong>: Platform komputasi (Cloud/On-premise), <em>software</em>, dan <em>library</em> apa yang tersedia dan akan digunakan?</p></li>
+</ul>
+</section>
+<section id="analisis-batasan-asumsi-dan-risiko">
+<h3>1.2.2 Analisis Batasan, Asumsi, dan Risiko<a class="headerlink" href="#analisis-batasan-asumsi-dan-risiko" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Batasan (Constraints)</strong>: Faktor-faktor yang tidak bisa diubah dan harus diterima.</p>
+<ul>
+<li><p><em>Contoh</em>: Anggaran proyek maksimal $50,000; Data pribadi pelanggan tidak boleh keluar dari server internal karena regulasi privasi.</p></li>
+</ul>
+</li>
+<li><p><strong>Asumsi (Assumptions)</strong>: Hal-hal yang kita anggap benar untuk melanjutkan proyek, namun perlu divalidasi.</p>
+<ul>
+<li><p><em>Contoh</em>: “Kami berasumsi data transaksi selama 1 tahun terakhir cukup untuk menangkap pola perilaku pelanggan.”</p></li>
+</ul>
+</li>
+<li><p><strong>Risiko (Risks)</strong>: Potensi masalah yang bisa menghambat atau menggagalkan proyek.</p>
+<ul>
+<li><p><em>Contoh</em>: Kualitas data yang ternyata sangat buruk; Pemangku kepentingan utama pindah ke perusahaan lain di tengah proyek.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="analisis-biaya-dan-manfaat-cost-benefit-analysis">
+<h3>1.2.3 Analisis Biaya dan Manfaat (Cost-Benefit Analysis)<a class="headerlink" href="#analisis-biaya-dan-manfaat-cost-benefit-analysis" title="Link to this heading">#</a></h3>
+<p>Lakukan analisis sederhana untuk membandingkan perkiraan biaya (waktu, tenaga, sumber daya) dengan potensi manfaat (peningkatan pendapatan, efisiensi operasional, penghematan biaya). Ini membantu memastikan bahwa proyek ini layak secara finansial.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="membuat-rencana-proyek-produce-project-plan">
+<h2>1.3 Membuat Rencana Proyek (Produce Project Plan)<a class="headerlink" href="#membuat-rencana-proyek-produce-project-plan" title="Link to this heading">#</a></h2>
+<p>Ini adalah langkah terakhir dalam fase <em>Business Understanding</em>, di mana semua informasi yang telah dikumpulkan dirangkum menjadi sebuah rencana awal.</p>
+<section id="rencana-dan-jadwal-proyek">
+<h3>1.3.1 Rencana dan Jadwal Proyek<a class="headerlink" href="#rencana-dan-jadwal-proyek" title="Link to this heading">#</a></h3>
+<p>Buat garis besar tahapan-tahapan proyek (mengacu pada CRISP-DM) beserta estimasi waktu untuk setiap tahapannya. Rencana ini akan menjadi panduan bagi seluruh tim.</p>
+<ul class="simple">
+<li><p><strong>Fase 1: Business Understanding</strong> (1-2 minggu)</p></li>
+<li><p><strong>Fase 2: Data Understanding</strong> (2-3 minggu)</p></li>
+<li><p><strong>Fase 3: Data Preparation</strong> (3-5 minggu)</p></li>
+<li><p><strong>dst.</strong></p></li>
+</ul>
+</section>
+<section id="definisi-deliverables">
+<h3>1.3.2 Definisi <em>Deliverables</em><a class="headerlink" href="#definisi-deliverables" title="Link to this heading">#</a></h3>
+<p>Tentukan apa saja hasil kerja (output) yang akan diserahkan pada setiap akhir tahapan. Contohnya, <em>deliverable</em> dari fase <em>Business Understanding</em> adalah dokumen rencana proyek ini sendiri.</p>
+</section>
+<section id="pemilihan-alat-dan-teknik-awal">
+<h3>1.3.3 Pemilihan Alat dan Teknik Awal<a class="headerlink" href="#pemilihan-alat-dan-teknik-awal" title="Link to this heading">#</a></h3>
+<p>Berdasarkan tujuan dan sumber daya, buat daftar awal mengenai alat dan teknik yang kemungkinan akan digunakan.</p>
+<ul class="simple">
+<li><p><strong>Tujuan</strong>: Prediksi Churn (Klasifikasi Biner)</p></li>
+<li><p><strong>Potensi Teknik</strong>: Regresi Logistik, Random Forest, XGBoost.</p></li>
+<li><p><strong>Potensi Alat</strong>: Python dengan library Scikit-learn, Jupyter Notebook untuk eksplorasi, SQL untuk pengambilan data.</p></li>
+</ul>
+<p>Dengan menyelesaikan tiga pilar ini, proyek data science Anda memiliki fondasi yang kuat untuk melangkah ke fase teknis berikutnya. 🚀</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">About Me</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="data-understanding.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Data Understanding</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menentukan-tujuan-bisnis-determine-business-objectives">1.1 Menentukan Tujuan Bisnis (Determine Business Objectives)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#memahami-latar-belakang-bisnis">1.1.1 Memahami Latar Belakang Bisnis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#merumuskan-tujuan-bisnis-yang-smart">1.1.2 Merumuskan Tujuan Bisnis yang SMART</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menentukan-kriteria-keberhasilan-bisnis">1.1.3 Menentukan Kriteria Keberhasilan Bisnis</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menilai-situasi-dan-kondisi-assess-situation">1.2 Menilai Situasi dan Kondisi (Assess Situation)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inventarisasi-sumber-daya">1.2.1 Inventarisasi Sumber Daya</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-batasan-asumsi-dan-risiko">1.2.2 Analisis Batasan, Asumsi, dan Risiko</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-biaya-dan-manfaat-cost-benefit-analysis">1.2.3 Analisis Biaya dan Manfaat (Cost-Benefit Analysis)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membuat-rencana-proyek-produce-project-plan">1.3 Membuat Rencana Proyek (Produce Project Plan)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rencana-dan-jadwal-proyek">1.3.1 Rencana dan Jadwal Proyek</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definisi-deliverables">1.3.2 Definisi <em>Deliverables</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pemilihan-alat-dan-teknik-awal">1.3.3 Pemilihan Alat dan Teknik Awal</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
