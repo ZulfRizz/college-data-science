@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Fungsi Augmentasi Data &#8212; My sample book</title>
+    <title>Voice Recognition &#8212; My sample book</title>
   
   
   
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -184,15 +184,7 @@
 <li class="toctree-l1"><a class="reference internal" href="data-praprocessing.html">Data Preprocessing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="imbalanced.html">Imbalanced Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ensemble_learning.html">Ensemble Learning</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Fungsi Augmentasi Data</a></li>
-
-
-
-
-
-
-
-
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Voice Recognition</a></li>
 </ul>
 
     </div>
@@ -378,7 +370,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Fungsi Augmentasi Data</h1>
+    <h1>Voice Recognition</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -388,17 +380,16 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Fungsi Augmentasi Data</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data-dan-ekstraksi-fitur-struktur-psd">LOAD DATA DAN EKSTRAKSI FITUR (STRUKTUR PSD)</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-fitur">VISUALISASI FITUR</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">PREPROCESSING</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#experiment-1-menggunakan-semua-fitur">EXPERIMENT 1 - MENGGUNAKAN SEMUA FITUR</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#seleksi-fitur-menggunakan-information-gain">SELEKSI FITUR MENGGUNAKAN INFORMATION GAIN</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#experiment-2-menggunakan-fitur-terseleksi">EXPERIMENT 2 - MENGGUNAKAN FITUR TERSELEKSI</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#perbandingan-hasil-experiment">PERBANDINGAN HASIL EXPERIMENT</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#save-model-dan-preprocessing-objects">SAVE MODEL DAN PREPROCESSING OBJECTS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fungsi-augmentasi-data">Fungsi Augmentasi Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data-dan-ekstraksi-fitur-struktur-psd">LOAD DATA DAN EKSTRAKSI FITUR (STRUKTUR PSD)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-fitur">VISUALISASI FITUR</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">PREPROCESSING</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#experiment-1-menggunakan-semua-fitur">EXPERIMENT 1 - MENGGUNAKAN SEMUA FITUR</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seleksi-fitur-menggunakan-information-gain">SELEKSI FITUR MENGGUNAKAN INFORMATION GAIN</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#experiment-2-menggunakan-fitur-terseleksi">EXPERIMENT 2 - MENGGUNAKAN FITUR TERSELEKSI</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perbandingan-hasil-experiment">PERBANDINGAN HASIL EXPERIMENT</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-model-dan-preprocessing-objects">SAVE MODEL DAN PREPROCESSING OBJECTS</a></li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -409,7 +400,9 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div class="cell docutils container">
+  <section class="tex2jax_ignore mathjax_ignore" id="voice-recognition">
+<h1>Voice Recognition<a class="headerlink" href="#voice-recognition" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>-q<span class="w"> </span>numpy<span class="w"> </span>pandas<span class="w"> </span>librosa<span class="w"> </span>matplotlib<span class="w"> </span>seaborn<span class="w"> </span>scikit-learn<span class="w"> </span>tsfel<span class="w"> </span>joblib
 </pre></div>
@@ -545,7 +538,7 @@ Folder mapping:
 </div>
 </div>
 <section id="fungsi-augmentasi-data">
-<h1>Fungsi Augmentasi Data<a class="headerlink" href="#fungsi-augmentasi-data" title="Link to this heading">#</a></h1>
+<h2>Fungsi Augmentasi Data<a class="headerlink" href="#fungsi-augmentasi-data" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">add_noise</span><span class="p">(</span><span class="n">audio</span><span class="p">,</span> <span class="n">noise_factor</span><span class="o">=</span><span class="mf">0.005</span><span class="p">):</span>
@@ -617,7 +610,7 @@ Folder mapping:
 </div>
 </section>
 <section id="load-data-dan-ekstraksi-fitur-struktur-psd">
-<h1>LOAD DATA DAN EKSTRAKSI FITUR (STRUKTUR PSD)<a class="headerlink" href="#load-data-dan-ekstraksi-fitur-struktur-psd" title="Link to this heading">#</a></h1>
+<h2>LOAD DATA DAN EKSTRAKSI FITUR (STRUKTUR PSD)<a class="headerlink" href="#load-data-dan-ekstraksi-fitur-struktur-psd" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============================================================================</span>
@@ -789,7 +782,7 @@ Name: count, dtype: int64
 </div>
 </section>
 <section id="visualisasi-fitur">
-<h1>VISUALISASI FITUR<a class="headerlink" href="#visualisasi-fitur" title="Link to this heading">#</a></h1>
+<h2>VISUALISASI FITUR<a class="headerlink" href="#visualisasi-fitur" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
@@ -863,7 +856,7 @@ max    1472.542786    0.196017   25.000000  1259.017847    1.634988
 </div>
 </section>
 <section id="preprocessing">
-<h1>PREPROCESSING<a class="headerlink" href="#preprocessing" title="Link to this heading">#</a></h1>
+<h2>PREPROCESSING<a class="headerlink" href="#preprocessing" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============================================================================</span>
@@ -921,7 +914,7 @@ Data testing: (160, 156)
 </div>
 </section>
 <section id="experiment-1-menggunakan-semua-fitur">
-<h1>EXPERIMENT 1 - MENGGUNAKAN SEMUA FITUR<a class="headerlink" href="#experiment-1-menggunakan-semua-fitur" title="Link to this heading">#</a></h1>
+<h2>EXPERIMENT 1 - MENGGUNAKAN SEMUA FITUR<a class="headerlink" href="#experiment-1-menggunakan-semua-fitur" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============================================================================</span>
@@ -985,7 +978,7 @@ weighted avg       0.95      0.95      0.95       160
 </div>
 </section>
 <section id="seleksi-fitur-menggunakan-information-gain">
-<h1>SELEKSI FITUR MENGGUNAKAN INFORMATION GAIN<a class="headerlink" href="#seleksi-fitur-menggunakan-information-gain" title="Link to this heading">#</a></h1>
+<h2>SELEKSI FITUR MENGGUNAKAN INFORMATION GAIN<a class="headerlink" href="#seleksi-fitur-menggunakan-information-gain" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============================================================================</span>
@@ -1067,7 +1060,7 @@ Threshold MI Score: 0.3625
 </div>
 </section>
 <section id="experiment-2-menggunakan-fitur-terseleksi">
-<h1>EXPERIMENT 2 - MENGGUNAKAN FITUR TERSELEKSI<a class="headerlink" href="#experiment-2-menggunakan-fitur-terseleksi" title="Link to this heading">#</a></h1>
+<h2>EXPERIMENT 2 - MENGGUNAKAN FITUR TERSELEKSI<a class="headerlink" href="#experiment-2-menggunakan-fitur-terseleksi" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============================================================================</span>
@@ -1292,7 +1285,7 @@ weighted avg       0.95      0.94      0.94       160
 </div>
 </section>
 <section id="perbandingan-hasil-experiment">
-<h1>PERBANDINGAN HASIL EXPERIMENT<a class="headerlink" href="#perbandingan-hasil-experiment" title="Link to this heading">#</a></h1>
+<h2>PERBANDINGAN HASIL EXPERIMENT<a class="headerlink" href="#perbandingan-hasil-experiment" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============================================================================</span>
@@ -1353,7 +1346,7 @@ Seleksi Fitur (IG)            78        94.375
 </div>
 </section>
 <section id="save-model-dan-preprocessing-objects">
-<h1>SAVE MODEL DAN PREPROCESSING OBJECTS<a class="headerlink" href="#save-model-dan-preprocessing-objects" title="Link to this heading">#</a></h1>
+<h2>SAVE MODEL DAN PREPROCESSING OBJECTS<a class="headerlink" href="#save-model-dan-preprocessing-objects" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============================================================================</span>
@@ -1536,6 +1529,7 @@ Silakan lanjutkan ke deployment Streamlit dengan file yang sudah disimpan.
 </div>
 </div>
 </section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1592,17 +1586,16 @@ Silakan lanjutkan ke deployment Streamlit dengan file yang sudah disimpan.
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Fungsi Augmentasi Data</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data-dan-ekstraksi-fitur-struktur-psd">LOAD DATA DAN EKSTRAKSI FITUR (STRUKTUR PSD)</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-fitur">VISUALISASI FITUR</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">PREPROCESSING</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#experiment-1-menggunakan-semua-fitur">EXPERIMENT 1 - MENGGUNAKAN SEMUA FITUR</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#seleksi-fitur-menggunakan-information-gain">SELEKSI FITUR MENGGUNAKAN INFORMATION GAIN</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#experiment-2-menggunakan-fitur-terseleksi">EXPERIMENT 2 - MENGGUNAKAN FITUR TERSELEKSI</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#perbandingan-hasil-experiment">PERBANDINGAN HASIL EXPERIMENT</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#save-model-dan-preprocessing-objects">SAVE MODEL DAN PREPROCESSING OBJECTS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fungsi-augmentasi-data">Fungsi Augmentasi Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data-dan-ekstraksi-fitur-struktur-psd">LOAD DATA DAN EKSTRAKSI FITUR (STRUKTUR PSD)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-fitur">VISUALISASI FITUR</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">PREPROCESSING</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#experiment-1-menggunakan-semua-fitur">EXPERIMENT 1 - MENGGUNAKAN SEMUA FITUR</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seleksi-fitur-menggunakan-information-gain">SELEKSI FITUR MENGGUNAKAN INFORMATION GAIN</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#experiment-2-menggunakan-fitur-terseleksi">EXPERIMENT 2 - MENGGUNAKAN FITUR TERSELEKSI</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perbandingan-hasil-experiment">PERBANDINGAN HASIL EXPERIMENT</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-model-dan-preprocessing-objects">SAVE MODEL DAN PREPROCESSING OBJECTS</a></li>
 </ul>
-
   </nav></div>
 
 </div></div>
