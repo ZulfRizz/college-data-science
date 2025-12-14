@@ -10,3 +10,4 @@ chapters:
 - file: data-praprocessing
 - file: imbalanced
 - file: ensemble_learning
+- file: voice_recognition
