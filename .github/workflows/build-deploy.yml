@@ -23,14 +23,24 @@ jobs:
 
       - name: Install dependencies
         run: |
+          # Menginstall requirements dari root (jika file ada di root)
           pip install -r requirements.txt
 
       - name: Build Jupyter Book
         run: |
+          # LANGKAH KUNCI: Pindah ke folder 'psd' dulu, baru build
+          cd psd
           jupyter-book build .
+
+      - name: Verify Build Output (Debug)
+        run: |
+          # Cek apakah folder html benar-benar terbentuk
+          ls -R psd/_build/html
 
       - name: Deploy to GitHub Pages
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Path tetap 'psd/_build/html' karena kita menjalankan ini dari root
           ghp-import -n -p -f psd/_build/html -b gh-pages
